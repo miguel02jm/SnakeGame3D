@@ -1,0 +1,3 @@
+C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/CMakeFiles/pr3b.dir
+C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/CMakeFiles/rebuild_cache.dir
