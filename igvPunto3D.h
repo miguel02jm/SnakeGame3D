@@ -11,6 +11,7 @@
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
+
 #define IGV_EPSILON 0.000001 ///< Constante para comparaciones con 0
 
 #ifndef __ENUM_XYZ
@@ -38,6 +39,7 @@ class igvPunto3D
       /// Constructor por defecto
       igvPunto3D () = default;
       igvPunto3D ( const double &x, const double &y, const double &z );
+
       // Constructor de copia
       igvPunto3D ( const igvPunto3D &p );
 
@@ -78,5 +80,5 @@ inline double &igvPunto3D::operator[] ( const unsigned char idx )
 inline double igvPunto3D::operator[] ( const unsigned char idx ) const
 {  return c[idx];
 }
-#endif   // __IGVPUNTO3D
 
+#endif   // __IGVPUNTO3D

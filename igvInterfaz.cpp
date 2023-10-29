@@ -1,9 +1,8 @@
 #include <cstdlib>
 #include <stdio.h>
-
 #include "igvInterfaz.h"
 
-// Aplicación del patrón de diseño Singleton
+// Aplicación del patrón Singleton
 igvInterfaz* igvInterfaz::_instancia = nullptr;
 
 // Métodos públicos ----------------------------------------
@@ -25,10 +24,16 @@ igvInterfaz& igvInterfaz::getInstancia ()
  * Crea el mundo que se visualiza en la ventana
  */
 void igvInterfaz::crear_mundo ()
-{  // inicia la cámara
-   _instancia->camara.set ( IGV_PARALELA, { 6.0, 4.0, 8 }, { 0, 0, 0 }
-                            , { 0, 1.0, 0 }, -1 * 5, 1 * 5, -1 * 5, 1 * 5
-                            , -1 * 3, 200 );
+{  // r tiene valor por defecto (0,0,0)
+   // crear cámaras
+   p0 = igvPunto3D ( 3.0, 2.0, 4 );
+   r = igvPunto3D ( 0, 0, 0 );
+   V = igvPunto3D ( 0, 1.0, 0 );
+
+   _instancia->camara.set ( IGV_PARALELA, p0, r, V, -1 * 3, 1 * 3, -1 * 3, 1 * 3, 1, 200 );
+
+   // Las cámaras se han creado con valores por defecto de 60 grados de apertura
+   // y ratio de aspecto 1
 }
 
 /**
@@ -49,7 +54,7 @@ void igvInterfaz::crear_mundo ()
 void igvInterfaz::configura_entorno ( int argc, char **argv, int _ancho_ventana
                                       , int _alto_ventana, int _pos_X, int _pos_Y
                                       , std::string _titulo )
-{  // inicialización de las variables de la interfaz
+{  // inicialización de los atributos de la interfaz
    ancho_ventana = _ancho_ventana;
    alto_ventana = _alto_ventana;
 
@@ -76,6 +81,25 @@ void igvInterfaz::inicia_bucle_visualizacion ()
 {  glutMainLoop (); // inicia el bucle de visualización de GLUT
 }
 
+
+void igvInterfaz::SpecialFunc(int key, int x, int y) {
+    //manejo de las teclas especiales del teclado para mover la posici?n del foco
+
+    if (key == GLUT_KEY_UP) {
+        _instancia->escena.setEjeX(-5); //rota el eje X
+    }
+    else if (key == GLUT_KEY_DOWN) {
+        _instancia->escena.setEjeX(5); //rota el eje X
+    }
+    else if (key == GLUT_KEY_RIGHT) {
+        _instancia->escena.setEjeY(5); //rota el eje Y
+    }
+    else if (key == GLUT_KEY_LEFT) {
+        _instancia->escena.setEjeY(-5); //rota el eje Y
+    }
+    glutPostRedisplay(); // renueva el contenido de la ventana de vision
+}
+
 /**
  * Método para control de eventos del teclado
  * @param key Código de la tecla pulsada
@@ -87,19 +111,76 @@ void igvInterfaz::inicia_bucle_visualizacion ()
  * @post Los atributos de la clase pueden cambiar, dependiendo de la tecla pulsada
  */
 void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
-{  switch ( key )
-   {
-      // TODO: Apartado C: incluir aquí el cambio de la cámara para mostrar las vistas planta, perfil, alzado o perspectiva
-      // TODO: Apartado C: incluir aquí la modificación de los grados de libertad del modelo pulsando las teclas correspondientes
+{  /* IMPORTANTE: en la implementación de este método hay que cambiar convenientemente el estado
+      de los objetos de la aplicación, pero no hacer llamadas directas a funciones de OpenGL */
 
-      case 'e': // activa/desactiva la visualizacion de los ejes
+   switch ( key )
+   {  case 'p':
+      case 'P':
+          if(_instancia->camara.tipo == IGV_PARALELA){
+              _instancia->camara.tipo = IGV_PERSPECTIVA;
+              _instancia->camara.aplicar();
+          } else {
+              _instancia->camara.tipo = IGV_PARALELA;
+              _instancia->camara.aplicar();
+          }
+           break;
+      case 'v':
+      case 'V':
+           _instancia->camara.cambiar_vista();
+           _instancia->camara.aplicar();
+         break;
+      case '+':
+          _instancia->camara.zoom(-0.05);
+           _instancia->camara.aplicar();
+         break;
+      case '-':
+          _instancia->camara.zoom(0.05);
+           _instancia->camara.aplicar();
+         break;
+       case 'w':
+           _instancia->escena.girarVert(90); //giro hacia arriba de la serpiente
+           break;
+       case 's':
+           _instancia->escena.girarVert(-90); //giro hacia abajo de la serpiente
+           break;
+       case 'd':
+           _instancia->escena.girarHor(-90); //giro hacia la derecha de la serpiente
+           break;
+       case 'a':
+           _instancia->escena.girarHor(90); //giro hacia la izquierda de la serpiente
+           break;
+       case 'i':
+           _instancia->escena.set_animacion(!_instancia->escena.get_animacion());
+           break;
+      case 'n':
+          _instancia->camara.znear = _instancia->camara.znear + 0.2;
+           _instancia->camara.zfar = _instancia->camara.zfar + 0.2;
+           _instancia->camara.aplicar();
+         break;
+      case 'N':
+          _instancia->camara.znear = _instancia->camara.znear - 0.2;
+           _instancia->camara.zfar = _instancia->camara.zfar - 0.2;
+           _instancia->camara.aplicar();
+         break;
+      case '4':
+          if (_instancia->booleano == false) {
+              _instancia->booleano = true;
+          }
+          else {
+              _instancia->booleano = false;
+          }
+           _instancia->displayFunc();
+           _instancia->camara.aplicar();
+           break;
+      case 'e': // activa/desactiva la visualización de los ejes
          _instancia->escena.set_ejes ( !_instancia->escena.get_ejes () );
          break;
       case 27: // tecla de escape para SALIR
          exit ( 1 );
          break;
    }
-   glutPostRedisplay (); // renueva el contenido de la ventana de vision
+   glutPostRedisplay (); // renueva el contenido de la ventana de vision y redibuja la escena
 }
 
 /**
@@ -122,27 +203,89 @@ void igvInterfaz::reshapeFunc ( int w, int h )
 /**
  * Método para visualizar la escena
  */
+/*void igvInterfaz::displayFunc ()
+{  glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // borra la ventana y el Z-buffer
+
+    // se establece el viewport
+    if (_instancia->booleano) {
+        glViewport(250, 250, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
+        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas];
+        _instancia->escena.visualizar();
+        _instancia->camara.aplicar();
+        glViewport(0, 250, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
+        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+1];
+        _instancia->escena.visualizar();
+        _instancia->camara.aplicar();
+        glViewport(250, 0, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
+        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+2];
+        _instancia->escena.visualizar();
+        _instancia->camara.aplicar();
+        glViewport(0, 0, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
+        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+3];
+        _instancia->escena.visualizar();
+        _instancia->camara.aplicar();
+    } else {
+        //visualiza la escena
+        glViewport(0, 0, _instancia->get_ancho_ventana(), _instancia->get_alto_ventana());
+        _instancia->escena.visualizar();
+    }
+
+    // refresca la ventana
+    glutSwapBuffers (); // se utiliza, en vez de glFlush(), para evitar el parpadeo
+}*/
+
 void igvInterfaz::displayFunc ()
-{  glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // borra la ventana y el z-buffer
-   // se establece el viewport
-   glViewport ( 0, 0, _instancia->get_ancho_ventana ()
-                , _instancia->get_alto_ventana () );
+{  glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // borra la ventana y el Z-buffer
 
+    // se establece el viewport
+    glViewport ( 0, 0, _instancia->get_ancho_ventana (), _instancia->get_alto_ventana () );
 
-   // aplica las transformaciones en función de los parámetros de la cámara
-   _instancia->camara.aplicar ();
-   // visualiza la escena
-   _instancia->escena.visualizar ();
+    //visualiza la escena
+    _instancia->escena.visualizar ();
 
-   // refresca la ventana
-   glutSwapBuffers ();
+    // refresca la ventana
+    glutSwapBuffers (); // se utiliza, en vez de glFlush(), para evitar el parpadeo
 }
 
-/**
- * Método para animar la escena
- */
-void igvInterfaz::idleFunc ()
-{  // TODO: Apartado D: incluir el código para animar el modelo de la manera más realista posible
+void igvInterfaz::IdleFunc() {
+    //c?digo para que la serpiente avance automaticamente
+    float velocidad_serpiente = 0.005;
+    if (_instancia->escena.get_animacion()) {
+        if (_instancia->escena.getGiroHor() == 0 && _instancia->escena.getGiroVert() == 0) {
+            _instancia->escena.set_coordZ(velocidad_serpiente);
+        }
+        else if ((_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180) && _instancia->escena.getGiroVert() == 0) {
+            _instancia->escena.set_coordZ(-velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroHor() == -90 && _instancia->escena.getGiroVert() == 0) {
+            _instancia->escena.set_coordX(-velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroHor() == 90 && _instancia->escena.getGiroVert() == 0) {
+            _instancia->escena.set_coordX(velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroVert() == 90) {
+            _instancia->escena.set_coordY(velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroVert() == -90) {
+            _instancia->escena.set_coordY(-velocidad_serpiente);
+        }
+        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == 0) {
+            _instancia->escena.set_coordZ(-velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroVert() == 180 && (_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180)) {
+            _instancia->escena.set_coordZ(velocidad_serpiente);
+        }
+        else if (_instancia->escena.getGiroVert() == -180 && (_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180)) {
+            _instancia->escena.set_coordZ(velocidad_serpiente);
+        }
+        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == 90) {
+            _instancia->escena.set_coordX(-velocidad_serpiente);
+        }
+        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == -90) {
+            _instancia->escena.set_coordX(velocidad_serpiente);
+        }
+    }
+    glutPostRedisplay();
 }
 
 /**
@@ -150,9 +293,10 @@ void igvInterfaz::idleFunc ()
  */
 void igvInterfaz::inicializa_callbacks ()
 {  glutKeyboardFunc ( keyboardFunc );
+    glutSpecialFunc(SpecialFunc);
    glutReshapeFunc ( reshapeFunc );
    glutDisplayFunc ( displayFunc );
-   glutIdleFunc ( idleFunc );
+    glutIdleFunc(IdleFunc);
 }
 
 /**
@@ -190,3 +334,4 @@ void igvInterfaz::set_ancho_ventana ( int _ancho_ventana )
 void igvInterfaz::set_alto_ventana ( int _alto_ventana )
 {  alto_ventana = _alto_ventana;
 }
+

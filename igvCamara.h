@@ -14,16 +14,6 @@
 #include "igvPunto3D.h"
 
 /**
- * Vistas de cámara
- */
-enum poscam
-{  panoramica   ///< Vista desde un punto arbitrario
-   , planta   ///< Vista de planta (cámara en el eje Y)
-   , perfil   ///< Vista de perfil (cámara en el eje X)
-   , alzado   ///< Vista de alzado (cámara en el eje Z)
-};
-
-/**
  * Etiquetas para los diferentes tipos de cámara
  */
 enum tipoCamara
@@ -36,31 +26,29 @@ enum tipoCamara
  * Los objetos de esta clase representan cámaras de visualización en la aplicación
  */
 class igvCamara
-{  private:
+{  public:
       // atributos
-      poscam vis = panoramica;      ///< Posición de la cámara
-
       tipoCamara tipo = IGV_PARALELA;  ///< Tipo de la cámara
 
       // ventana de visión: parámetros proyección paralela y frustum
-      GLdouble xwmin = -5    ///< Coordenada X mínima del frustum/proyección paralela
-               , xwmax = 5   ///< Coordenada X máxima del frustum/proyección paralela
-               , ywmin = -5   ///< Coordenada Y mínima del frustum/proyección paralela
-               , ywmax = 5   ///< Coordenada Y máxima del frustum/proyección paralela
-               ;
+      GLdouble xwmin = -3    ///< Coordenada X mínima del frustum/proyección paralela
+             , xwmax = 3   ///< Coordenada X máxima del frustum/proyección paralela
+             , ywmin = -3   ///< Coordenada Y mínima del frustum/proyección paralela
+             , ywmax = 3   ///< Coordenada Y máxima del frustum/proyección paralela
+             ;
 
       // ventana de visión: parámetros proyección perspectiva
       GLdouble angulo = 60   ///< Ángulo de apertura (proyección perspectiva)
-               , raspecto = 1   ///< Razón de aspecto (proyección perspectiva)
-               ;
+             , raspecto = 1   ///< Razón de aspecto (proyección perspectiva)
+             ;
 
       // distancias de planos cercano y lejano
-      GLdouble znear = 3    ///< Distancia de la cámara al plano Z near
-               , zfar = 200 ///< Distancia de la cámara al plano Z far
-               ;
+      GLdouble znear = 1    ///< Distancia de la cámara al plano Z near
+             , zfar = 200 ///< Distancia de la cámara al plano Z far
+             ;
 
       // punto de visión
-      igvPunto3D P0 = { 6, 4, 8 };   ///< Posición de la cámara
+      igvPunto3D P0 = { 3, 2, 4 };   ///< Posición de la cámara
 
       // punto de referencia de visión
       igvPunto3D r = { 0, 0, 0 };   ///< Punto al que mira la cámara
@@ -68,7 +56,14 @@ class igvCamara
       // vector arriba
       igvPunto3D V = { 0, 1, 0 };   ///< Vector que indica la vertical
 
+      //vistas
+      igvPunto3D Default = igvPunto3D(3.0, 2.0, 4.0);
+    igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
+    igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
+    igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
+
       // Métodos
+        void cambiar_vista();
 
    public:
       // Constructores por defecto y destructor
@@ -94,9 +89,9 @@ class igvCamara
       void set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V
                  , double _angulo, double _raspecto, double _znear, double _zfar );
 
-      void aplicar (); // aplica a los objetos de la escena la transformación
-                       // de visión y la transformación de proyección
-                       // asociadas a los parámetros de la cámara
+      void aplicar ( void ); // aplica a los objetos de la escena la transformación
+                             // de visión y la transformación de proyección
+                             // asociadas a los parámetros de la cámara
       void zoom ( double factor ); // realiza un zoom sobre la cámara
 };
 

@@ -12,9 +12,17 @@
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
 #include <string>
-#include <iostream>
+
 #include "igvEscena3D.h"
 #include "igvCamara.h"
+
+/// Vistas canónicas
+enum Vista
+{  PLANTA   ///< Vista de planta (cámara en el eje Y)
+   , ALZADO   ///< Vista de alzado (cámara en el eje Z)
+   , PERFIL   ///< Vista de perfil (cámara en el eje X)
+   , OTRA   ///< Otro tipo de vista
+};
 
 /**
  * Los objetos de esta clase encapsulan la interfaz y el estado de la aplicación
@@ -28,15 +36,22 @@ class igvInterfaz
       igvEscena3D escena; ///< Escena que se visualiza en la ventana definida por igvInterfaz
       igvCamara camara; ///< Cámara que se utiliza para visualizar la escena
 
-      // Aplicación del patrón de diseño Singleton
-      static igvInterfaz* _instancia; ///< Dirección de memoria del objeto único de la clase
-      /// Constructor por defecto
-      igvInterfaz () = default;
+      // Valores de la vista panorámica
+      igvPunto3D p0 = { 0, 0, 0 } ///< Posición de la cámara
+                 , r = { 0, 0, 0 } ///< Punto de referencia para las vistas
+                 , V = { 0, 0, 0 } ///< Vector que indica la vertical en la vista
+                 ;
 
+      // Aplicación del patrón Singleton
+      static igvInterfaz* _instancia;   ///< Puntero al objeto único de la clase
+      /// Constructor por defecto
+      igvInterfaz() = default;
+
+    bool booleano = false;
+    /*igvPunto3D vistas[4] = {_instancia->camara.Default,_instancia->camara.Planta,_instancia->camara.Alzado,_instancia->camara.Perfil};*/
+    /*int indice_vistas=0*/
    public:
-      // Aplicación del patrón de diseño Singleton
       static igvInterfaz& getInstancia ();
-      // Constructores por defecto y destructor
 
       /// Destructor
       ~igvInterfaz () = default;
@@ -44,10 +59,11 @@ class igvInterfaz
       // Métodos estáticos
       // callbacks de eventos
       static void keyboardFunc ( unsigned char key, int x, int y ); // método para control de eventos del teclado
+      static void SpecialFunc(int key, int x, int y);
       static void reshapeFunc ( int w, int h ); // método que define la camara de vision y el viewport
                                                 // se llama automáticamente cuando se cambia el tamaño de la ventana
       static void displayFunc (); // método para visualizar la escena
-      static void idleFunc (); // método para animar la escena
+      static void IdleFunc();
 
       // Métodos
       // crea el mundo que se visualiza en la ventana
@@ -59,7 +75,9 @@ class igvInterfaz
                                , int _pos_X, int _pos_Y // posición inicial de la ventana de visualización
                                , std::string _titulo // título de la ventana de visualización
                              );
+
       void inicializa_callbacks (); // inicializa todos los callbacks
+
       void inicia_bucle_visualizacion (); // visualiza la escena y espera a eventos sobre la interfaz
 
       // métodos get_ y set_ de acceso a los atributos
