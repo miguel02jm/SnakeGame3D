@@ -176,22 +176,22 @@
 			[
 				{
 					"backtrace" : 20,
-					"path" : "C:/Users/mange/Desktop/Miguel/Universidad/IGV/Pr\u00e1cticas - Sesiones/SnakeGame3D/."
+					"path" : "C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/."
 				},
 				{
 					"backtrace" : 21,
 					"isSystem" : true,
-					"path" : "C:/Users/mange/.conan2/p/opengd9728560ae872/p/include"
+					"path" : "C:/Users/Jaime/.conan2/p/opengd9728560ae872/p/include"
 				},
 				{
 					"backtrace" : 21,
 					"isSystem" : true,
-					"path" : "C:/Users/mange/.conan2/p/khrplf8ad437cff9db/p/include"
+					"path" : "C:/Users/Jaime/.conan2/p/khrplf8ad437cff9db/p/include"
 				},
 				{
 					"backtrace" : 2,
 					"isSystem" : true,
-					"path" : "C:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/include"
+					"path" : "C:/Users/Jaime/.conan2/p/b/freegf34b40f2b0773/p/include"
 				}
 			],
 			"language" : "CXX",
@@ -228,12 +228,12 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\mange\\.conan2\\p\\b\\freeg6d89ce691c2f0\\p\\lib",
+				"fragment" : "-LC:\\Users\\Jaime\\.conan2\\p\\b\\freegf34b40f2b0773\\p\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 10,
-				"fragment" : "C:\\Users\\mange\\.conan2\\p\\b\\freeg6d89ce691c2f0\\p\\lib\\libglut.a",
+				"fragment" : "C:\\Users\\Jaime\\.conan2\\p\\b\\freegf34b40f2b0773\\p\\lib\\libglut.a",
 				"role" : "libraries"
 			},
 			{

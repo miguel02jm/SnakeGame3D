@@ -6,7 +6,7 @@ set(khrplatform_FIND_DEPENDENCY_NAMES "")
 
 ########### VARIABLES #######################################################################
 #############################################################################################
-set(khrplatform_PACKAGE_FOLDER_DEBUG "C:/Users/mange/.conan2/p/khrplf8ad437cff9db/p")
+set(khrplatform_PACKAGE_FOLDER_DEBUG "C:/Users/Jaime/.conan2/p/khrplf8ad437cff9db/p")
 set(khrplatform_BUILD_MODULES_PATHS_DEBUG )
 
 
