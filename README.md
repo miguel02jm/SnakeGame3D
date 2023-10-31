@@ -1,2 +1,3 @@
-- [ ] Iluminación y texturas
-- [ ] Hacer que la serpiente crezca
+- [ ] Iluminación y texturas de la serpiente
+- [ ] Hacer que la serpiente crezca (Crear un vector con los diferentes cubos que se generen y aplicar una translación a cada uno de los cubos con las coordenadas del cubo anterior en el vector)
+- [ ] Menú principal y Puntuación 
