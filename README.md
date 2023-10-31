@@ -1,1 +1,2 @@
 - [ ] Iluminación y texturas
+- [ ] Hacer que la serpiente crezca
