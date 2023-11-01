@@ -1,26 +1,14 @@
-C:\Users\mange\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=C:/Users/mange/AppData/Local/Programs/CLion/bin/ninja/win/x64/ninja.exe -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake -G Ninja -S "C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prácticas - Sesiones\SnakeGame3D" -B "C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prácticas - Sesiones\SnakeGame3D\cmake-build-debug"
--- The C compiler identification is GNU 13.1.0
--- The CXX compiler identification is GNU 13.1.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: C:/Users/mange/AppData/Local/Programs/CLion/bin/mingw/bin/gcc.exe - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: C:/Users/mange/AppData/Local/Programs/CLion/bin/mingw/bin/g++.exe - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
+C:\Users\Jaime\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake -G "CodeBlocks - MinGW Makefiles" -S C:\Users\Jaime\Desktop\Graficas\SnakeGame3D -B C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\cmake-build-debug
 -- CMake-Conan: first find_package() found. Installing dependencies with Conan
 -- CMake-Conan: Checking if a default profile exists
-C:\Users\mange\.conan2\profiles\default
+C:\Users\Jaime\.conan2\profiles\default
 -- CMake-Conan: cmake_system_name=Windows
 -- CMake-Conan: cmake_system_processor=x86_64
 -- CMake-Conan: CMake compiler=GNU
 -- CMake-Conan: CMake compiler version=13.1.0
 -- CMake-Conan: [settings] compiler=gcc
 -- CMake-Conan: [settings] compiler.version=13
--- CMake-Conan: Creating profile C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/conan_host_profile
+-- CMake-Conan: Creating profile C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/cmake-build-debug/conan_host_profile
 -- CMake-Conan: Profile: 
 include(default)
 [settings]
@@ -31,10 +19,10 @@ compiler.version=13
 compiler.cppstd=14
 build_type=Debug
 [conf]
-tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmaketoolchain:generator=MinGW Makefiles
 
 -- CMake-Conan: Installing single configuration Debug
--- CMake-Conan: conan install C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D -of=C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/conan -pr;C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug/conan_host_profile;--build=missing;-g;CMakeDeps
+-- CMake-Conan: conan install C:/Users/Jaime/Desktop/Graficas/SnakeGame3D -of=C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/cmake-build-debug/conan -pr;C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/cmake-build-debug/conan_host_profile;--build=missing;-g;CMakeDeps
 
 ======== Input profiles ========
 Profile host:
@@ -47,7 +35,7 @@ compiler.libcxx=libstdc++11
 compiler.version=13
 os=Windows
 [conf]
-tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmaketoolchain:generator=MinGW Makefiles
 
 Profile build:
 [settings]
@@ -56,13 +44,13 @@ build_type=Release
 compiler=gcc
 compiler.cppstd=gnu17
 compiler.libcxx=libstdc++11
-compiler.version=11
+compiler.version=13
 os=Windows
 
 
 ======== Computing dependency graph ========
 Graph root
-    conanfile.py: C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prßcticas - Sesiones/SnakeGame3D\conanfile.py
+    conanfile.py: C:/Users/Jaime/Desktop/Graficas/SnakeGame3D\conanfile.py
 Requirements
     freeglut/3.4.0#faa2b8377286ee578be419cbecadd8ab - Cache
     glu/system#ee50fc2ade0e1c0c8ebb3be3ea60e0f5 - Cache
@@ -72,7 +60,7 @@ Requirements
 
 ======== Computing necessary packages ========
 Requirements
-    freeglut/3.4.0#faa2b8377286ee578be419cbecadd8ab:ed736eed206dc90466f85ab14a5143e88bfcbf63#16b1e02995dad01842ba845c63909898 - Cache
+    freeglut/3.4.0#faa2b8377286ee578be419cbecadd8ab:ed736eed206dc90466f85ab14a5143e88bfcbf63#8e878c8ff87f4f44f231f0ab913281b3 - Cache
     glu/system#ee50fc2ade0e1c0c8ebb3be3ea60e0f5:da39a3ee5e6b4b0d3255bfef95601890afd80709#0ba8627bd47edc3a501e8f0eb9a79e5e - Cache
     khrplatform/cci.20200529#eec32d0f1ddfbf78a41c67c621783196:da39a3ee5e6b4b0d3255bfef95601890afd80709#f6ca34b0055eeb66de8e0cb09c284e44 - Cache
     opengl-registry/cci.20220929#ade8c44dc6965559f5a1cf35f46c4303:da39a3ee5e6b4b0d3255bfef95601890afd80709#26f580fe059036ad87647726361c788f - Cache
@@ -89,19 +77,19 @@ WARN: deprecated:     'cpp_info.filenames' used in: opengl/system
 WARN: deprecated:     'cpp_info.names' used in: freeglut/3.4.0
 
 ======== Finalizing install (deploy, generators) ========
-conanfile.py: Writing generators to C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prßcticas - Sesiones\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
+conanfile.py: Writing generators to C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
 conanfile.py: Generator 'CMakeDeps' calling 'generate()'
 conanfile.py: Calling generate()
-conanfile.py: Generators folder: C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prßcticas - Sesiones\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
+conanfile.py: Generators folder: C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
 conanfile.py: CMakeToolchain generated: conan_toolchain.cmake
 conanfile.py: Preset 'conan-debug' added to CMakePresets.json. Invoke it manually using 'cmake --preset conan-debug' if using CMake>=3.23
-conanfile.py: If your CMake version is not compatible with CMakePresets (<3.23) call cmake like: 'cmake <path> -G Ninja -DCMAKE_TOOLCHAIN_FILE=C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prßcticas - Sesiones\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators\conan_toolchain.cmake -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug'
+conanfile.py: If your CMake version is not compatible with CMakePresets (<3.23) call cmake like: 'cmake <path> -G "MinGW Makefiles" -DCMAKE_TOOLCHAIN_FILE=C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators\conan_toolchain.cmake -DCMAKE_SH=CMAKE_SH-NOTFOUND -DCMAKE_POLICY_DEFAULT_CMP0091=NEW -DCMAKE_BUILD_TYPE=Debug'
 conanfile.py: CMakeToolchain generated: CMakePresets.json
 conanfile.py: Generating aggregated env files
 conanfile.py: Generated aggregated env files: ['conanbuild.bat', 'conanrun.bat']
 Install finished successfully
--- CMake-Conan: CONAN_GENERATORS_FOLDER=C:\Users\mange\Desktop\Miguel\Universidad\IGV\Prácticas - Sesiones\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
--- CMake-Conan: CONANFILE=C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/conanfile.py
+-- CMake-Conan: CONAN_GENERATORS_FOLDER=C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\cmake-build-debug\conan\build\Debug\generators
+-- CMake-Conan: CONANFILE=C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/conanfile.py
 -- Conan: Target declared 'opengl::opengl'
 -- CMake-Conan: find_package(opengl-registry) found, 'conan install' already ran
 -- Conan: Target declared 'opengl-registry::opengl-registry'
@@ -111,6 +99,6 @@ Install finished successfully
 -- Conan: Component target declared 'FreeGLUT::freeglut_static'
 -- CMake-Conan: find_package(glu) found, 'conan install' already ran
 -- Conan: Target declared 'glu::glu'
--- Configuring done (5.7s)
+-- Configuring done (1.2s)
 -- Generating done (0.0s)
--- Build files have been written to: C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/cmake-build-debug
+-- Build files have been written to: C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/cmake-build-debug

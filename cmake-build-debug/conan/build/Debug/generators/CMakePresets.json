@@ -12,14 +12,15 @@
         {
             "name": "conan-debug",
             "displayName": "'conan-debug' config",
-            "description": "'conan-debug' configure using 'Ninja' generator",
-            "generator": "Ninja",
+            "description": "'conan-debug' configure using 'MinGW Makefiles' generator",
+            "generator": "MinGW Makefiles",
             "cacheVariables": {
+                "CMAKE_SH": "CMAKE_SH-NOTFOUND",
                 "CMAKE_POLICY_DEFAULT_CMP0091": "NEW",
                 "CMAKE_BUILD_TYPE": "Debug"
             },
-            "toolchainFile": "C:\\Users\\mange\\Desktop\\Miguel\\Universidad\\IGV\\Pr\u00e1cticas - Sesiones\\SnakeGame3D\\cmake-build-debug\\conan\\build\\Debug\\generators\\conan_toolchain.cmake",
-            "binaryDir": "C:\\Users\\mange\\Desktop\\Miguel\\Universidad\\IGV\\Pr\u00e1cticas - Sesiones\\SnakeGame3D\\cmake-build-debug\\conan\\build\\Debug"
+            "toolchainFile": "C:\\Users\\Jaime\\Desktop\\Graficas\\SnakeGame3D\\cmake-build-debug\\conan\\build\\Debug\\generators\\conan_toolchain.cmake",
+            "binaryDir": "C:\\Users\\Jaime\\Desktop\\Graficas\\SnakeGame3D\\cmake-build-debug\\conan\\build\\Debug"
         }
     ],
     "buildPresets": [

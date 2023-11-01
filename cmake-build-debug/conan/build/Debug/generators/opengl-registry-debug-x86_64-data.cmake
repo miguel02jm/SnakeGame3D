@@ -8,7 +8,7 @@ set(khrplatform_FIND_MODE "NO_MODULE")
 
 ########### VARIABLES #######################################################################
 #############################################################################################
-set(opengl-registry_PACKAGE_FOLDER_DEBUG "C:/Users/mange/.conan2/p/opengd9728560ae872/p")
+set(opengl-registry_PACKAGE_FOLDER_DEBUG "C:/Users/Jaime/.conan2/p/opengd9728560ae872/p")
 set(opengl-registry_BUILD_MODULES_PATHS_DEBUG )
 
 
