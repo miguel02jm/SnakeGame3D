@@ -15,6 +15,7 @@
 
 #include "igvEscena3D.h"
 #include "igvCamara.h"
+#include "igvSnake.h"
 
 /// Vistas canónicas
 enum Vista

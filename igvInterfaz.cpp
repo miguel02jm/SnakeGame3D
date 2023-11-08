@@ -139,19 +139,19 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
            _instancia->camara.aplicar();
          break;
        case 'w':
-           _instancia->escena.girarVert(90); //giro hacia arriba de la serpiente
+           _instancia->escena.getSnake()->girarVert(-90); //giro hacia arriba de la serpiente
            break;
        case 's':
-           _instancia->escena.girarVert(-90); //giro hacia abajo de la serpiente
+           _instancia->escena.getSnake()->girarVert(90); //giro hacia abajo de la serpiente
            break;
        case 'd':
-           _instancia->escena.girarHor(-90); //giro hacia la derecha de la serpiente
+           _instancia->escena.getSnake()->girarHor(-90); //giro hacia la derecha de la serpiente
            break;
        case 'a':
-           _instancia->escena.girarHor(90); //giro hacia la izquierda de la serpiente
+           _instancia->escena.getSnake()->girarHor(90); //giro hacia la izquierda de la serpiente
            break;
        case 'i':
-           _instancia->escena.set_animacion(!_instancia->escena.get_animacion());
+           _instancia->escena.getSnake()->set_animacion(!_instancia->escena.getSnake()->get_animacion());
            break;
       case 'n':
           _instancia->camara.znear = _instancia->camara.znear + 0.2;
@@ -250,39 +250,39 @@ void igvInterfaz::displayFunc ()
 void igvInterfaz::IdleFunc() {
     //c?digo para que la serpiente avance automaticamente
     float velocidad_serpiente = 0.005;
-    if (_instancia->escena.get_animacion()) {
-        if (_instancia->escena.getGiroHor() == 0 && _instancia->escena.getGiroVert() == 0) {
-            _instancia->escena.set_coordZ(velocidad_serpiente);
+    if (_instancia->escena.getSnake()->get_animacion()) {
+        if (_instancia->escena.getSnake()->getGiroHor() == 0 && _instancia->escena.getSnake()->getGiroVert() == 0) {
+            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
         }
-        else if ((_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180) && _instancia->escena.getGiroVert() == 0) {
-            _instancia->escena.set_coordZ(-velocidad_serpiente);
+        else if ((_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180) && _instancia->escena.getSnake()->getGiroVert() == 0) {
+            _instancia->escena.getSnake()->setCoordZ(-velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroHor() == -90 && _instancia->escena.getGiroVert() == 0) {
-            _instancia->escena.set_coordX(-velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroHor() == -90 && _instancia->escena.getSnake()->getGiroVert() == 0) {
+            _instancia->escena.getSnake()->setCoordX(-velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroHor() == 90 && _instancia->escena.getGiroVert() == 0) {
-            _instancia->escena.set_coordX(velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroHor() == 90 && _instancia->escena.getSnake()->getGiroVert() == 0) {
+            _instancia->escena.getSnake()->setCoordX(velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroVert() == 90) {
-            _instancia->escena.set_coordY(velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroVert() == 90) {
+            _instancia->escena.getSnake()->setCoordY(-velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroVert() == -90) {
-            _instancia->escena.set_coordY(-velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroVert() == -90) {
+            _instancia->escena.getSnake()->setCoordY(velocidad_serpiente);
         }
-        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == 0) {
-            _instancia->escena.set_coordZ(-velocidad_serpiente);
+        else if ((_instancia->escena.getSnake()->getGiroVert() == 180 || _instancia->escena.getSnake()->getGiroVert() == -180) && _instancia->escena.getSnake()->getGiroHor() == 0) {
+            _instancia->escena.getSnake()->setCoordZ(-velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroVert() == 180 && (_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180)) {
-            _instancia->escena.set_coordZ(velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroVert() == 180 && (_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180)) {
+            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
         }
-        else if (_instancia->escena.getGiroVert() == -180 && (_instancia->escena.getGiroHor() == 180 || _instancia->escena.getGiroHor() == -180)) {
-            _instancia->escena.set_coordZ(velocidad_serpiente);
+        else if (_instancia->escena.getSnake()->getGiroVert() == -180 && (_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180)) {
+            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
         }
-        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == 90) {
-            _instancia->escena.set_coordX(-velocidad_serpiente);
+        else if ((_instancia->escena.getSnake()->getGiroVert() == 180 || _instancia->escena.getSnake()->getGiroVert() == -180) && _instancia->escena.getSnake()->getGiroHor() == 90) {
+            _instancia->escena.getSnake()->setCoordX(-velocidad_serpiente);
         }
-        else if ((_instancia->escena.getGiroVert() == 180 || _instancia->escena.getGiroVert() == -180) && _instancia->escena.getGiroHor() == -90) {
-            _instancia->escena.set_coordX(velocidad_serpiente);
+        else if ((_instancia->escena.getSnake()->getGiroVert() == 180 || _instancia->escena.getSnake()->getGiroVert() == -180) && _instancia->escena.getSnake()->getGiroHor() == -90) {
+            _instancia->escena.getSnake()->setCoordX(velocidad_serpiente);
         }
     }
     glutPostRedisplay();
