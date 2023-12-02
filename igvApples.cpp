@@ -3,29 +3,34 @@
 //
 
 #include "igvApples.h"
-#include <time.h>
 
 float igvApples::getCoordXManzana() {
     return coordXManzana;
-}
-
-float igvApples::getCoordYManzana() {
-    return coordYManzana;
 }
 
 float igvApples::getCoordZManzana() {
     return coordZManzana;
 }
 
-float igvApples::generarAleatorioManzanas() {
-    srand(time(NULL));
-    return (-15 + rand() % 31) / 10.0;
+float igvApples::generarAleatorioCoordXManzanas() {
+    int columna = rand() % columnas;
+
+    float tamCasillaX = 4.0 / columnas;
+
+    return coordXManzana = -2 + columna * tamCasillaX;
+}
+
+float igvApples::generarAleatorioCoordZManzanas() {
+    int fila = rand() % filas;
+
+    float tamCasillaZ = 4.0 / filas;
+
+    return coordZManzana = -2 + fila * tamCasillaZ;
 }
 
 void igvApples::generarCoordsManzanas() {
-    coordXManzana = generarAleatorioManzanas();
-    coordYManzana = generarAleatorioManzanas();
-    coordZManzana = generarAleatorioManzanas();
+    coordXManzana = generarAleatorioCoordXManzanas();
+    coordZManzana = generarAleatorioCoordZManzanas();
 }
 
 void igvApples::crearManzana() {
@@ -33,7 +38,7 @@ void igvApples::crearManzana() {
     glMaterialfv(GL_FRONT, GL_EMISSION, color_manzana);
 
     glPushMatrix();
-    glTranslatef(coordXManzana, coordYManzana, coordZManzana);
+    glTranslatef(coordXManzana, 0, coordZManzana);
     glutSolidSphere(0.15, 20, 20);
     glPopMatrix();
 }

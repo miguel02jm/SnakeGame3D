@@ -8,22 +8,29 @@ float igvBombs::getCoordXBomba(){
     return coordXBomba;
 }
 
-float igvBombs::getCoordYBomba(){
-    return coordYBomba;
-}
-
 float igvBombs::getCoordZBomba(){
     return coordZBomba;
 }
 
-float igvBombs::generarAleatorioBombas(){
-    return (-15 + rand() % 31) / 10.0;
+float igvBombs::generarAleatorioCoordXBombas() {
+    int columna = rand() % columnas;
+
+    float tamCasillaX = 4.0 / columnas;
+
+    return coordXBomba = -2 + columna * tamCasillaX;
+}
+
+float igvBombs::generarAleatorioCoordZBombas() {
+    int fila = rand() % filas;
+
+    float tamCasillaZ = 4.0 / filas;
+
+    return coordZBomba = -2 + fila * tamCasillaZ;
 }
 
 void igvBombs::generarCoordsBombas() {
-    coordXBomba = generarAleatorioBombas();
-    coordYBomba = generarAleatorioBombas();
-    coordZBomba = generarAleatorioBombas();
+    coordXBomba = generarAleatorioCoordXBombas();
+    coordZBomba = generarAleatorioCoordZBombas();
 }
 
 void igvBombs::crearBomba() {
@@ -31,7 +38,7 @@ void igvBombs::crearBomba() {
     glMaterialfv(GL_FRONT, GL_EMISSION, color_bomba);
 
     glPushMatrix();
-    glTranslatef(coordXBomba, coordYBomba, coordZBomba);
+    glTranslatef(coordXBomba, 0, coordZBomba);
     glutSolidSphere(0.15, 20, 20);
     glPopMatrix();
 }

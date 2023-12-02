@@ -15,15 +15,17 @@ class igvBombs {
 
 private:
     float coordXBomba = 0;
-    float coordYBomba = 0;
     float coordZBomba = 0;
+
+    int filas = 10;
+    int columnas = 10;
 
 public:
     float getCoordXBomba();
-    float getCoordYBomba();
     float getCoordZBomba();
 
-    float generarAleatorioBombas();
+    float generarAleatorioCoordXBombas();
+    float generarAleatorioCoordZBombas();
 
     void generarCoordsBombas();
 

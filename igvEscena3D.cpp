@@ -31,14 +31,28 @@ void igvEscena3D::pintar_ejes()
    glEnd ();
 }
 
-
 void igvEscena3D::CrearEscenario() {
+    // Dibuja el cubo grande
     glPushMatrix();
-    glScaled(3, 3, 3);
+    glTranslated(0, -0.6, 0);
+    glScaled(4, 1, 4);
     glutWireCube(1);
     glPopMatrix();
-}
 
+    // Tamaño de los cubos pequeños
+    float tamCasillaX = 4.0 / filas;
+    float tamCasillaZ = 4.0 / columnas;
+
+    for (int i = 0; i < filas; ++i) {
+        for (int j = 0; j < columnas; ++j) {
+            glPushMatrix();
+            glTranslated(-2 + j * tamCasillaX + tamCasillaX / 2, -0.6, 2 - i * tamCasillaZ - tamCasillaZ / 2);
+            glScaled(tamCasillaX, 1, tamCasillaZ);
+            glutWireCube(1);
+            glPopMatrix();
+        }
+    }
+}
 
 void igvEscena3D::verificarColision() {
 
@@ -49,16 +63,16 @@ void igvEscena3D::verificarColision() {
         bombs.generarCoordsBombas();
 
         Primera_Generacion = false;
-    }else if ((snake.getCoordX() >= apples.getCoordXManzana() - 0.25 && snake.getCoordX() <= apples.getCoordXManzana() + 0.25) &&
-        (snake.getCoordY() >= apples.getCoordYManzana() - 0.25 && snake.getCoordY() <= apples.getCoordYManzana() + 0.25) &&
-        (snake.getCoordZ() >= apples.getCoordZManzana() - 0.25 && snake.getCoordZ() <= apples.getCoordZManzana() + 0.25)) {
+    }else if ((snake.getCoordX() >= apples.getCoordXManzana() - 0.15 && snake.getCoordX() <= apples.getCoordXManzana() + 0.15) &&
+        (snake.getCoordZ() >= apples.getCoordZManzana() - 0.15 && snake.getCoordZ() <= apples.getCoordZManzana() + 0.15)) {
 
         apples.generarCoordsManzanas();
         bombs.generarCoordsBombas();
 
-    }else if((snake.getCoordX() >= bombs.getCoordXBomba() - 0.25 && snake.getCoordX() <= bombs.getCoordXBomba() + 0.25) &&
-             (snake.getCoordY() >= bombs.getCoordYBomba() - 0.25 && snake.getCoordY() <= bombs.getCoordYBomba() + 0.25) &&
-             (snake.getCoordZ() >= bombs.getCoordZBomba() - 0.25 && snake.getCoordZ() <= bombs.getCoordZBomba() + 0.25)){
+        snake.crecer();
+
+    }else if((snake.getCoordX() >= bombs.getCoordXBomba() - 0.15 && snake.getCoordX() <= bombs.getCoordXBomba() + 0.15) &&
+             (snake.getCoordZ() >= bombs.getCoordZBomba() - 0.15 && snake.getCoordZ() <= bombs.getCoordZBomba() + 0.15)){
                 exit(1);
     }
 }

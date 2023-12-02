@@ -48,7 +48,7 @@ class igvCamara
              ;
 
       // punto de visión
-      igvPunto3D P0 = { 3, 2, 4 };   ///< Posición de la cámara
+      igvPunto3D P0 = { 0, 2, 4 };   ///< Posición de la cámara
 
       // punto de referencia de visión
       igvPunto3D r = { 0, 0, 0 };   ///< Punto al que mira la cámara
@@ -58,9 +58,9 @@ class igvCamara
 
       //vistas
       igvPunto3D Default = igvPunto3D(3.0, 2.0, 4.0);
-    igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
-    igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
-    igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
+      igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
+      igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
+      igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
 
       // Métodos
         void cambiar_vista();

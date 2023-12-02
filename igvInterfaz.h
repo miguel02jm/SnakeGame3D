@@ -47,8 +47,6 @@ class igvInterfaz
       static igvInterfaz* _instancia;   ///< Puntero al objeto único de la clase
       /// Constructor por defecto
       igvInterfaz() = default;
-
-    bool booleano = false;
     /*igvPunto3D vistas[4] = {_instancia->camara.Default,_instancia->camara.Planta,_instancia->camara.Alzado,_instancia->camara.Perfil};*/
     /*int indice_vistas=0*/
    public:
@@ -65,6 +63,7 @@ class igvInterfaz
                                                 // se llama automáticamente cuando se cambia el tamaño de la ventana
       static void displayFunc (); // método para visualizar la escena
       static void IdleFunc();
+      static void TimerFunc(int value);
 
       // Métodos
       // crea el mundo que se visualiza en la ventana

@@ -1,9 +1,11 @@
 #include <cstdlib>
 
 #include "igvInterfaz.h"
+#include <time.h>
 
 
 int main(int argc, char** argv) {
+    srand(time(NULL));
 	// inicializa la ventana de visualización
    igvInterfaz::getInstancia().configura_entorno ( argc, argv
                                                    , 500, 500 // tamaño de la ventana

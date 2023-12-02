@@ -16,15 +16,17 @@ class igvApples {
 
 private:
     float coordXManzana = 0;
-    float coordYManzana = 0;
     float coordZManzana = 0;
+
+    int filas = 10;
+    int columnas = 10;
 
 public:
     float getCoordXManzana();
-    float getCoordYManzana();
     float getCoordZManzana();
 
-    float generarAleatorioManzanas();
+    float generarAleatorioCoordXManzanas();
+    float generarAleatorioCoordZManzanas();
 
     void generarCoordsManzanas();
 

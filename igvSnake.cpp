@@ -49,38 +49,41 @@ void igvSnake::CrearLenguaSerpiente() {
 }
 
 void igvSnake::crearModelo() {
-    glTranslatef(coordX, coordY, coordZ);
-    glRotatef(giro_hor,0,1,0);
-    glRotatef(giro_vert,1, 0, 0);
-    glScalef(0.25, 0.25, 0.25);
+    // Dibuja la cabeza de la serpiente en las coordenadas de la cabeza
+    glPushMatrix();
+    glTranslatef(coordX, 0, coordZ);
+    glRotatef(giro_hor, 0, 1, 0);
+    glRotatef(giro_vert, 1, 0, 0);
+    glScalef(0.35, 0.35, 0.35);
     CrearCabezaSerpiente();
     CrearOjosSerpiente();
     CrearLenguaSerpiente();
     CrearTorsoSerpiente();
+    glPopMatrix();
+
+    // Dibuja los segmentos de la serpiente en las coordenadas correspondientes
+    for (size_t i = 0; i < segmentos.size(); ++i) {
+        const auto& segmento = segmentos[i];
+        glPushMatrix();
+        glTranslatef(segmento.first, 0, segmento.second);
+        glRotatef(giro_hor, 0, 1, 0);
+        glRotatef(giro_vert, 1, 0, 0);
+        glScalef(0.35, 0.35, 0.35);
+        CrearTorsoSerpiente();
+        glPopMatrix();
+    }
 }
 
-void igvSnake::girarVert(float rot) {
-    giro_vert += rot;
-    if (giro_vert == -270) {
-        giro_vert = 90;
-    }
-    if (giro_vert >= 270) {
-        giro_vert = -90;
-    }
-}
+
 
 void igvSnake::girarHor(float rot) {
     giro_hor += rot;
-    if (giro_hor == -270) {
-        giro_hor = 90;
+    if (giro_hor > 270) {
+        giro_hor = 0;
     }
-    if (giro_hor == 270) {
-        giro_hor = -90;
+    if (giro_hor < 0) {
+        giro_hor = 270;
     }
-}
-
-float igvSnake::getGiroVert() {
-    return giro_vert;
 }
 
 float igvSnake::getGiroHor() {
@@ -97,32 +100,81 @@ bool igvSnake::get_animacion() {
     return animacion;
 }
 
-void igvSnake::setCoordX(float cX) {
-    if (coordX > 1.35 || coordX < -1.35)
-        coordX = -coordX;
-    coordX += cX;
+void igvSnake::setCoordX(float col) {
+    float tamCasillaX = 4.0 / columna;
+    coordX = -2 + col * tamCasillaX;
 }
 
-void igvSnake::setCoordY(float cY) {
-    if (coordY > 1.35 || coordY < -1.35)
-        coordY = -coordY;
-    coordY += cY;
-}
-
-void igvSnake::setCoordZ(float cZ) {
-    if (coordZ > 1.35 || coordZ < -1.35)
-        coordZ = -coordZ;
-    coordZ += cZ;
+void igvSnake::setCoordZ(float fil) {
+    float tamCasillaZ = 4.0 / fila;
+    coordZ = -2 + fil * tamCasillaZ;
 }
 
 float igvSnake::getCoordX() {
     return coordX;
 }
 
-float igvSnake::getCoordY() {
-    return coordY;
-}
-
 float igvSnake::getCoordZ() {
     return coordZ;
 }
+
+void igvSnake::setColumna(float col) {
+    if(col>10){
+        columna1=0;
+    }else if(col<0){
+        columna1=10;
+    }else{
+        columna1 = col;
+    }
+}
+
+void igvSnake::setFila(float fil) {
+    if(fil>10){
+        fila1 = 0;
+    }else if(fil<0){
+        fila1 = 10;
+    }else{
+        fila1 = fil;
+    }
+}
+
+float igvSnake::getColumna() {
+    return columna1;
+}
+
+float igvSnake::getFila() {
+    return fila1;
+}
+
+void igvSnake::crecer() {
+    float newX, newZ;
+
+    // Si hay al menos un segmento en la serpiente, toma las coordenadas del último segmento
+    if (!segmentos.empty()) {
+        newX = segmentos.back().first;
+        newZ = segmentos.back().second;
+    } else {
+        // Si la serpiente está vacía, toma las coordenadas de la cabeza
+        newX = coordX;
+        newZ = coordZ;
+    }
+
+    // Agrega el nuevo segmento al vector
+    segmentos.push_back(std::make_pair(newX, newZ));
+}
+
+void igvSnake::moverSerpiente(float oldCoordX, float oldCoordZ) {
+    // Actualiza las coordenadas de los segmentos
+    for (int i = segmentos.size() - 1; i >= 0; --i) {
+        if (i == 0) {
+            // Primer elemento sigue a la cabeza
+            segmentos[i].first = oldCoordX;
+            segmentos[i].second = oldCoordZ;
+        } else {
+            // Elementos siguientes siguen al anterior
+            segmentos[i].first = segmentos[i - 1].first;
+            segmentos[i].second = segmentos[i - 1].second;
+        }
+    }
+}
+

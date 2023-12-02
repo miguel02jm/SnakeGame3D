@@ -35,6 +35,10 @@ class igvEscena3D
       igvApples apples;
       igvBombs bombs;
 
+    static const int filas = 10;
+    static const int columnas = 10;
+    int matrizEscenario[filas][columnas];
+
    public:
       // Constructores por defecto y destructor
       /// Constructor por defecto
