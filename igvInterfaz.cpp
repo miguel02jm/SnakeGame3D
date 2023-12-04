@@ -139,10 +139,10 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
            _instancia->camara.aplicar();
            break;
        case 'a':
-           _instancia->escena.getSnake()->girarHor(-90); //giro hacia la derecha de la serpiente
+           _instancia->escena.getSnake()->girarHor(90); //giro hacia la derecha de la serpiente
            break;
        case 'd':
-           _instancia->escena.getSnake()->girarHor(90); //giro hacia la izquierda de la serpiente
+           _instancia->escena.getSnake()->girarHor(-90); //giro hacia la izquierda de la serpiente
            break;
        case 'i':
            _instancia->escena.getSnake()->set_animacion(!_instancia->escena.getSnake()->get_animacion());
@@ -160,29 +160,6 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
        case 'e': // activa/desactiva la visualización de los ejes
            _instancia->escena.set_ejes(!_instancia->escena.get_ejes());
            break;
-       case 'o': {
-           float oldCoordX = _instancia->escena.getSnake()->getCoordX();
-           float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
-
-           float fila = _instancia->escena.getSnake()->getFila();
-           float columna = _instancia->escena.getSnake()->getColumna();
-
-           if (_instancia->escena.getSnake()->getGiroHor() == 0) {
-               _instancia->escena.getSnake()->setFila(fila+=1);
-               _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
-           } else if (_instancia->escena.getSnake()->getGiroHor() == 90) {
-               _instancia->escena.getSnake()->setColumna(columna+=1);
-               _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
-           } else if (_instancia->escena.getSnake()->getGiroHor() == 180) {
-               _instancia->escena.getSnake()->setFila(fila-=1);
-               _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
-           } else if (_instancia->escena.getSnake()->getGiroHor() == 270) {
-               _instancia->escena.getSnake()->setColumna(columna-=1);
-               _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
-           }
-           _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-           break;
-   }
        case 27: // tecla de escape para SALIR
          exit ( 1 );
          break;
@@ -255,55 +232,52 @@ void igvInterfaz::displayFunc ()
 }
 
 void igvInterfaz::IdleFunc() {
-    //codigo para que la serpiente avance automaticamente
-    /*float velocidad_serpiente = 0.0005;
-    float oldCoordX = _instancia->escena.getSnake()->getCoordX();
-    float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
-    if (_instancia->escena.getSnake()->get_animacion()) {
+    // Código para que la serpiente avance automáticamente
+    if(_instancia->escena.getSnake()->get_animacion()){
+        float oldCoordX = _instancia->escena.getSnake()->getCoordX();
+        float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
+
+        float fila = _instancia->escena.getSnake()->getFila();
+        float columna = _instancia->escena.getSnake()->getColumna();
+
         if (_instancia->escena.getSnake()->getGiroHor() == 0) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
+            _instancia->escena.getSnake()->setFila(fila += 1);
+            _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
+        } else if (_instancia->escena.getSnake()->getGiroHor() == 90) {
+            _instancia->escena.getSnake()->setColumna(columna += 1);
+            _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
+        } else if (_instancia->escena.getSnake()->getGiroHor() == 180) {
+            _instancia->escena.getSnake()->setFila(fila -= 1);
+            _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
+        } else if (_instancia->escena.getSnake()->getGiroHor() == 270) {
+            _instancia->escena.getSnake()->setColumna(columna -= 1);
+            _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
         }
-        else if (_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordZ(-velocidad_serpiente);
-        }
-        else if (_instancia->escena.getSnake()->getGiroHor() == -90) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordX(-velocidad_serpiente);
-        }
-        else if (_instancia->escena.getSnake()->getGiroHor() == 90) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordX(velocidad_serpiente);
-        }
-        else if (_instancia->escena.getSnake()->getGiroHor() == 0) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordZ(-velocidad_serpiente);
-        }
-        else if (_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
-        }
-        else if (_instancia->escena.getSnake()->getGiroHor() == 180 || _instancia->escena.getSnake()->getGiroHor() == -180) {
-            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
-            _instancia->escena.getSnake()->setCoordZ(velocidad_serpiente);
-        }
+        _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
     }
-    glutPostRedisplay();*/
+
+    glutPostRedisplay();
 }
 
+void igvInterfaz::TimerFunc(int value) {
+    // Configura el temporizador para la próxima llamada
+    glutTimerFunc(500, TimerFunc, 0);
 
+    // Llama a IdleFunc para que la serpiente avance
+    IdleFunc();
+}
 
 /**
  * Método para inicializar los callbacks GLUT
  */
-void igvInterfaz::inicializa_callbacks ()
-{  glutKeyboardFunc ( keyboardFunc );
+void igvInterfaz::inicializa_callbacks () {
+    glutKeyboardFunc(keyboardFunc);
     glutSpecialFunc(SpecialFunc);
-   glutReshapeFunc ( reshapeFunc );
-   glutDisplayFunc ( displayFunc );
-    //glutIdleFunc(IdleFunc);
-    //glutTimerFunc(10000000, TimerFunc, 0);
+    glutReshapeFunc(reshapeFunc);
+    glutDisplayFunc(displayFunc);
+
+    // Establece el temporizador inicial
+    glutTimerFunc(0, TimerFunc, 0);
 }
 
 /**

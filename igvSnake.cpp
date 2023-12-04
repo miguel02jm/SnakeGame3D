@@ -101,12 +101,12 @@ bool igvSnake::get_animacion() {
 }
 
 void igvSnake::setCoordX(float col) {
-    float tamCasillaX = 4.0 / columna;
+    float tamCasillaX = 4.0 / columnas;
     coordX = -2 + col * tamCasillaX;
 }
 
 void igvSnake::setCoordZ(float fil) {
-    float tamCasillaZ = 4.0 / fila;
+    float tamCasillaZ = 4.0 / filas;
     coordZ = -2 + fil * tamCasillaZ;
 }
 
@@ -163,8 +163,50 @@ void igvSnake::crecer() {
     segmentos.push_back(std::make_pair(newX, newZ));
 }
 
+int igvSnake::obtenerFilaDesdeCoordZ(float coordZ) {
+    // Asumiendo que coordZ está en el rango [-2, 2] y hay 10 filas en total
+    int filas = 10;
+    float tamCasillaZ = 4.0 / filas;
+    int fila = static_cast<int>((coordZ + 2.0) / tamCasillaZ);
+
+    // Asegúrate de que la fila esté en el rango correcto
+    fila = std::max(0, std::min(filas - 1, fila));
+
+    return fila;
+}
+
+int igvSnake::obtenerColumnaDesdeCoordX(float coordX) {
+    // Asumiendo que coordX está en el rango [-2, 2] y hay 10 columnas en total
+    int columnas = 10;
+    float tamCasillaX = 4.0 / columnas;
+    int columna = static_cast<int>((coordX + 2.0) / tamCasillaX);
+
+    // Asegúrate de que la columna esté en el rango correcto
+    columna = std::max(0, std::min(columnas - 1, columna));
+
+    return columna;
+}
+
+bool igvSnake::hayColision() {
+    for(int i = 0; i < segmentos.size(); i++){
+        if((coordX >= segmentos[i].first - 0.15 && coordX <= segmentos[i].first + 0.15) &&
+           (coordZ >= segmentos[i].second - 0.15 && coordZ <= segmentos[i].second + 0.15)){
+            return true;
+        }
+    }
+    return false;
+}
+
+
 void igvSnake::moverSerpiente(float oldCoordX, float oldCoordZ) {
-    // Actualiza las coordenadas de los segmentos
+    // Inicializar todas las casillas de la matriz como vacías (0)
+    for (int i = 0; i < 10; ++i) {
+        for (int j = 0; j < 10; ++j) {
+            matrizEscenario[i][j] = 0;
+        }
+    }
+
+    // Actualiza las coordenadas de los segmentos y la matriz del escenario
     for (int i = segmentos.size() - 1; i >= 0; --i) {
         if (i == 0) {
             // Primer elemento sigue a la cabeza
@@ -175,6 +217,16 @@ void igvSnake::moverSerpiente(float oldCoordX, float oldCoordZ) {
             segmentos[i].first = segmentos[i - 1].first;
             segmentos[i].second = segmentos[i - 1].second;
         }
+
+        // Actualiza la matriz del escenario
+        int fila = obtenerFilaDesdeCoordZ(segmentos[i].second);
+        int columna = obtenerColumnaDesdeCoordX(segmentos[i].first);
+        matrizEscenario[fila][columna] = 1; // Marca la posición de la serpiente
+    }
+
+    if (hayColision()) {
+        exit(1);
     }
 }
+
 
