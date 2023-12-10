@@ -276,5 +276,14 @@ CMakeFiles/pr3b.dir/pr3b.cpp.obj: \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/hash_bytes.h \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/basic_string.tcc \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvEscena3D.h \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/vector \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_uninitialized.h \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_vector.h \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/stl_bvector.h \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/vector.tcc \
+ C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/cstring \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvSnake.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvApples.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvBombs.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvCamara.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvPunto3D.h

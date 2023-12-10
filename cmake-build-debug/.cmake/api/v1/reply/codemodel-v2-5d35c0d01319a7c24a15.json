@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "pr3b::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-pr3b-Debug-ebb0ce542dcf2ac41f97.json",
+					"jsonFile" : "target-pr3b-Debug-15c1b8ce4ab5b986c8f8.json",
 					"name" : "pr3b",
 					"projectIndex" : 0
 				}
@@ -55,6 +55,6 @@
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 5
+		"minor" : 6
 	}
 }

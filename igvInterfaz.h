@@ -8,6 +8,7 @@
 #else
 
 #include <GL/glut.h>
+#include <windows.h>
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
@@ -15,13 +16,20 @@
 
 #include "igvEscena3D.h"
 #include "igvCamara.h"
+#include "igvSnake.h"
 
 /// Vistas canónicas
 enum Vista
 {  PLANTA   ///< Vista de planta (cámara en el eje Y)
-   , ALZADO   ///< Vista de alzado (cámara en el eje Z)
-   , PERFIL   ///< Vista de perfil (cámara en el eje X)
-   , OTRA   ///< Otro tipo de vista
+    , ALZADO   ///< Vista de alzado (cámara en el eje Z)
+    , PERFIL   ///< Vista de perfil (cámara en el eje X)
+    , OTRA   ///< Otro tipo de vista
+};
+
+enum GameState {
+    MAIN_MENU,
+    PLAYING,
+    CHANGE_SKIN
 };
 
 /**
@@ -29,65 +37,76 @@ enum Vista
  */
 class igvInterfaz
 {  private:
-      // Atributos
-      int ancho_ventana = 0; ///< Ancho de la ventana de visualización
-      int alto_ventana = 0;  ///< Alto de la ventana de visualización
+    // Atributos
+    int ancho_ventana = 0; ///< Ancho de la ventana de visualización
+    int alto_ventana = 0;  ///< Alto de la ventana de visualización
 
-      igvEscena3D escena; ///< Escena que se visualiza en la ventana definida por igvInterfaz
-      igvCamara camara; ///< Cámara que se utiliza para visualizar la escena
+    float button1X = -2, button1Y = 1.25, buttonWidth = 4, buttonHeight = 0.75;
+    float button2X = -2, button2Y = -0.25;
+    float button3X = -2, button3Y = -1.75;
 
-      // Valores de la vista panorámica
-      igvPunto3D p0 = { 0, 0, 0 } ///< Posición de la cámara
-                 , r = { 0, 0, 0 } ///< Punto de referencia para las vistas
-                 , V = { 0, 0, 0 } ///< Vector que indica la vertical en la vista
-                 ;
+    igvEscena3D escena; ///< Escena que se visualiza en la ventana definida por igvInterfaz
+    igvCamara camara; ///< Cámara que se utiliza para visualizar la escena
 
-      // Aplicación del patrón Singleton
-      static igvInterfaz* _instancia;   ///< Puntero al objeto único de la clase
-      /// Constructor por defecto
-      igvInterfaz() = default;
+    // Valores de la vista panorámica
+    igvPunto3D p0 = { 0, 0, 0 } ///< Posición de la cámara
+    , r = { 0, 0, 0 } ///< Punto de referencia para las vistas
+    , V = { 0, 0, 0 } ///< Vector que indica la vertical en la vista
+    ;
 
-    bool booleano = false;
+    // Aplicación del patrón Singleton
+    static igvInterfaz* _instancia;   ///< Puntero al objeto único de la clase
+    /// Constructor por defecto
+    igvInterfaz() = default;
+
     /*igvPunto3D vistas[4] = {_instancia->camara.Default,_instancia->camara.Planta,_instancia->camara.Alzado,_instancia->camara.Perfil};*/
     /*int indice_vistas=0*/
-   public:
-      static igvInterfaz& getInstancia ();
 
-      /// Destructor
-      ~igvInterfaz () = default;
+    int currentState = MAIN_MENU;
 
-      // Métodos estáticos
-      // callbacks de eventos
-      static void keyboardFunc ( unsigned char key, int x, int y ); // método para control de eventos del teclado
-      static void SpecialFunc(int key, int x, int y);
-      static void reshapeFunc ( int w, int h ); // método que define la camara de vision y el viewport
-                                                // se llama automáticamente cuando se cambia el tamaño de la ventana
-      static void displayFunc (); // método para visualizar la escena
-      static void IdleFunc();
+public:
+    static igvInterfaz& getInstancia ();
 
-      // Métodos
-      // crea el mundo que se visualiza en la ventana
-      void crear_mundo ();
+    /// Destructor
+    ~igvInterfaz () = default;
 
-      // inicializa todos los parámetros para crear una ventana de visualización
-      void configura_entorno ( int argc, char **argv // parámetros del main
-                               , int _ancho_ventana, int _alto_ventana // ancho y alto de la ventana de visualización
-                               , int _pos_X, int _pos_Y // posición inicial de la ventana de visualización
-                               , std::string _titulo // título de la ventana de visualización
-                             );
+    // Métodos estáticos
+    // callbacks de eventos
+    static void keyboardFunc ( unsigned char key, int x, int y ); // método para control de eventos del teclado
+    static void SpecialFunc(int key, int x, int y);
+    static void reshapeFunc ( int w, int h ); // método que define la camara de vision y el viewport
+    // se llama automáticamente cuando se cambia el tamaño de la ventana
+    static void displayFunc (); // método para visualizar la escena
 
-      void inicializa_callbacks (); // inicializa todos los callbacks
+    static void mouseFunc ( GLint boton, GLint estado, GLint x, GLint y );
 
-      void inicia_bucle_visualizacion (); // visualiza la escena y espera a eventos sobre la interfaz
+    static void IdleFunc();
+    static void TimerFunc(int value);
 
-      // métodos get_ y set_ de acceso a los atributos
-      int get_ancho_ventana ();
+    // Métodos
+    // crea el mundo que se visualiza en la ventana
+    void crear_mundo ();
 
-      int get_alto_ventana ();
+    // inicializa todos los parámetros para crear una ventana de visualización
+    void configura_entorno ( int argc, char **argv // parámetros del main
+            , int _ancho_ventana, int _alto_ventana // ancho y alto de la ventana de visualización
+            , int _pos_X, int _pos_Y // posición inicial de la ventana de visualización
+            , std::string _titulo // título de la ventana de visualización
+    );
 
-      void set_ancho_ventana ( int _ancho_ventana );
+    void inicializa_callbacks (); // inicializa todos los callbacks
 
-      void set_alto_ventana ( int _alto_ventana );
+    void inicia_bucle_visualizacion (); // visualiza la escena y espera a eventos sobre la interfaz
+
+    // métodos get_ y set_ de acceso a los atributos
+    int get_ancho_ventana ();
+
+    int get_alto_ventana ();
+
+    void set_ancho_ventana ( int _ancho_ventana );
+
+    void set_alto_ventana ( int _alto_ventana );
 };
 
 #endif   // __IGVINTERFAZ
+

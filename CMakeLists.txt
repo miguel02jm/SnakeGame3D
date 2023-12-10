@@ -15,8 +15,12 @@ add_executable(${PROJECT_NAME}
         igvPunto3D.cpp
         igvPunto3D.h
         pr3b.cpp
-        board.cpp
-        board.h
+        igvSnake.cpp
+        igvSnake.h
+        igvApples.cpp
+        igvApples.h
+        igvBombs.cpp
+        igvBombs.h
 )
 
 if (LINUX)

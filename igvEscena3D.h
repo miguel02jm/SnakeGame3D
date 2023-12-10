@@ -8,114 +8,83 @@
 #else
 
 #include <GL/glut.h>
+#include <vector>
+#include <cstring>
+#include "igvSnake.h"
+#include "igvApples.h"
+#include "igvBombs.h"
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
+
+struct Segmento {
+    float x, y, z;
+};
 
 /**
  * Los objetos de esta clase representan escenas 3D para su visualización
  */
 class igvEscena3D
 {  private:
-      // Atributos
-      bool ejes = true;   ///< Indica si hay que dibujar los _ejes coordenados o no
-      float ejeX = 0;
-      float ejeY = 0;
-      float giro_vert = 0;
-      float giro_hor = 0;
+    // Atributos
+    bool ejes = true;   ///< Indica si hay que dibujar los _ejes coordenados o no
+    float ejeX = 0;
+    float ejeY = 0;
 
-      bool animacion = false;
+    bool Primera_Generacion = true;
 
-      float coordX = 0;
-      float coordY = 0;
-      float coordZ = 0;
+    igvSnake snake;
+    igvApples apples;
+    igvBombs bombs;
 
-      float coordXManzana = 0;
-      float coordYManzana = 0;
-      float coordZManzana = 0;
+    static const int filas = 10;
+    static const int columnas = 10;
+    int matrizEscenario[filas][columnas];
 
-      float coordXBomba = 0;
-      float coordYBomba = 0;
-      float coordZBomba = 0;
+    float button1X = -2, button1Y = 0.75, buttonWidth = 4, buttonHeight = 0.75;
+    float button2X = -2, button2Y = -0.75;
+    float button3X = -2, button3Y = -2.25;
 
-      bool Primera_Generacion = true;
-      float num1 = 0;
-      float num2 = 0;
-      float num3 = 0;
-      float num4 = 0;
-      float num5 = 0;
-      float num6 = 0;
+    float button4X = -0.8, button4Y = 1.3, button2Width = 1.75, button2Height = 0.4;
+    float button5X = -0.8, button5Y = -0.5;
+    float button6X = -0.8, button6Y = -2.35;
 
-      int contador = 0;
+    GLfloat skin1[3] = { 0.1,0.4,0.1 };
+    GLfloat skin2[3] = {1.0, 0.5, 0.5};
+    GLfloat skin3[3] = {0.5, 0.5, 1.0};
+    GLfloat skin[3] = { 0.1,0.4,0.1 };
 
-   public:
-      // Constructores por defecto y destructor
-      /// Constructor por defecto
-      igvEscena3D () = default;
-      /// Destructor
-      ~igvEscena3D () = default;
+    bool visualizandose=false;
+public:
+    // Constructores por defecto y destructor
+    /// Constructor por defecto
+    igvEscena3D () = default;
+    /// Destructor
+    ~igvEscena3D () = default;
 
-      // Métodos
-      // método con las llamadas OpenGL para visualizar la escena
-      void visualizar ();
+    void visualizar();
+    void visualizarMenu();
+    void visualizarSkin();
 
-      bool get_ejes ();
+    bool get_ejes ();
 
-      void set_ejes ( bool _ejes );
+    void set_ejes ( bool _ejes );
 
-      void CrearEscenario();
-      void CrearManzanayBombas();
-      void CrearTorsoSerpiente();
-      void CrearCabezaSerpiente();
-      void CrearOjosSerpiente();
-      void CrearLenguaSerpiente();
+    void CrearEscenario();
 
-      void crearModelo();
+    void verificarColision();
 
-      void setEjeX(float rotacion);
-      void setEjeY(float rotacion);
+    void setEjeX(float rotacion);
+    void setEjeY(float rotacion);
 
-      float getEjeX();
-      float getEjeY();
-
-    //Movimiento de la serpiente
-    void girarVert(float rot);
-    void girarHor(float rot);
-    float getGiroVert();
-    float getGiroHor();
-
-    void set_animacion(bool _animacion);
-    bool get_animacion();
-
-    void set_coordX(float cX);
-    void set_coordY(float cY);
-    void set_coordZ(float cZ);
-
-    float get_coordX();
-    float get_coordY();
-    float get_coordZ();
-
-    //Metodos para modificar y obtener la posicion de las manzanas
-    void set_coordXManzana(float cX);
-    void set_coordYManzana(float cY);
-    void set_coordZManzana(float cZ);
-
-    float get_coordXManzana();
-    float get_coordYManzana();
-    float get_coordZManzana();
-
-
-    //Metodos para modificar y obtener la posicion de las bombas
-    void set_coordXBomba(float cX);
-    void set_coordYBomba(float cY);
-    void set_coordZBomba(float cZ);
-
-    float get_coordXBomba();
-    float get_coordYBomba();
-    float get_coordZBomba();
-
-private:
+    igvSnake* getSnake();
 
     void pintar_ejes();
+
+    void setSkin1();
+    void setSkin2();
+    void setSkin3();
+
+    bool getVisualizandose();
 };
 
 #endif   // __IGVESCENA3D

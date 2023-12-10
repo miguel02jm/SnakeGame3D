@@ -15,8 +15,8 @@
  *       le pasan
  */
 igvCamara::igvCamara ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-   , igvPunto3D _V ): P0 ( _P0 ), r ( _r ), V ( _V )
-                      , tipo ( _tipo )
+        , igvPunto3D _V ): P0 ( _P0 ), r ( _r ), V ( _V )
+        , tipo ( _tipo )
 { }
 
 // Métodos públicos
@@ -30,8 +30,8 @@ igvCamara::igvCamara ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  */
 void igvCamara::set ( igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V )
 {  P0 = _P0;
-   r  = _r;
-   V  = _V;
+    r  = _r;
+    V  = _V;
 }
 
 /**
@@ -50,20 +50,20 @@ void igvCamara::set ( igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V )
  * @post Los atributos de la cámara cambian a los valores pasados como parámetro
  */
 void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-                      , igvPunto3D _V, double _xwmin, double _xwmax, double _ywmin
-                      , double _ywmax, double _znear, double _zfar )
+        , igvPunto3D _V, double _xwmin, double _xwmax, double _ywmin
+        , double _ywmax, double _znear, double _zfar )
 {  tipo = _tipo;
 
-   P0 = _P0;
-   r = _r;
-   V = _V;
+    P0 = _P0;
+    r = _r;
+    V = _V;
 
-   xwmin = _xwmin;
-   xwmax = _xwmax;
-   ywmin = _ywmin;
-   ywmax = _ywmax;
-   znear = _znear;
-   zfar = _zfar;
+    xwmin = _xwmin;
+    xwmax = _xwmax;
+    ywmin = _ywmin;
+    ywmax = _ywmax;
+    znear = _znear;
+    zfar = _zfar;
 }
 
 /**
@@ -81,18 +81,18 @@ void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  *       parámetros
  */
 void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-                      , igvPunto3D _V, double _angulo, double _raspecto
-                      , double _znear, double _zfar )
+        , igvPunto3D _V, double _angulo, double _raspecto
+        , double _znear, double _zfar )
 {  tipo = _tipo;
 
-   P0 = _P0;
-   r = _r;
-   V = _V;
+    P0 = _P0;
+    r = _r;
+    V = _V;
 
-   angulo = _angulo;
-   raspecto = _raspecto;
-   znear = _znear;
-   zfar = _zfar;
+    angulo = _angulo;
+    raspecto = _raspecto;
+    znear = _znear;
+    zfar = _zfar;
 }
 
 /**
@@ -101,24 +101,24 @@ void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  */
 void igvCamara::aplicar ()
 {  glMatrixMode ( GL_PROJECTION );
-   glLoadIdentity ();
+    glLoadIdentity ();
 
-   if ( tipo == IGV_PARALELA )
-   {
-      glOrtho ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
-   }
-   if ( tipo == IGV_FRUSTUM )
-   {
-      glFrustum ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
-   }
-   if ( tipo == IGV_PERSPECTIVA )
-   {
-      gluPerspective ( angulo, raspecto, znear, zfar );
-   }
+    if ( tipo == IGV_PARALELA )
+    {
+        glOrtho ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
+    }
+    if ( tipo == IGV_FRUSTUM )
+    {
+        glFrustum ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
+    }
+    if ( tipo == IGV_PERSPECTIVA )
+    {
+        gluPerspective ( angulo, raspecto, znear, zfar );
+    }
 
-   glMatrixMode ( GL_MODELVIEW );
-   glLoadIdentity ();
-   gluLookAt ( P0[X], P0[Y], P0[Z], r[X], r[Y], r[Z], V[X], V[Y], V[Z] );
+    glMatrixMode ( GL_MODELVIEW );
+    glLoadIdentity ();
+    gluLookAt ( P0[X], P0[Y], P0[Z], r[X], r[Y], r[Z], V[X], V[Y], V[Z] );
 }
 
 /**
@@ -137,16 +137,76 @@ void igvCamara::zoom ( double factor )
 }
 
 void igvCamara::cambiar_vista() {
-    if (P0 == igvPunto3D(Default)) {
-        P0 = igvPunto3D(Perfil);
+    if (def == 1) {
+        setVistaPerfil();
     }
-    else if (P0 == igvPunto3D(Perfil)) {
-        P0 = igvPunto3D(Planta);
+    else if (perf == 1) {
+        setVistaPlanta();
     }
-    else if (P0 == igvPunto3D(Planta)) {
-        P0 = igvPunto3D(Alzado);
+    else if (plant == 1) {
+        setVistaAlzado();
     }
-    else if (P0 == igvPunto3D(Alzado)) {
-        P0 = igvPunto3D(Default);
+    else if (alz == 1) {
+        setVistaNormal();
     }
+}
+
+void igvCamara::setVistaPerfil() {
+    plant=0;
+    alz=0;
+    def=0;
+    perf=1;
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glTranslatef(0.9, 0.0, 0.0);
+
+    gluLookAt(0.0, 0.0, 4.0,
+              1.0, 0.0, 0.0,
+              0.0, 1.0, 0.0);
+}
+
+void igvCamara::setVistaNormal() {
+    plant=0;
+    alz=0;
+    def=1;
+    perf=0;
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glTranslatef(0.9, 0.0, 0.0);
+
+    gluLookAt(3.0, 2.0, 4.0,
+              1.0, 0.0, 0.0,
+              0.0, 1.0, 0.0);
+}
+
+void igvCamara::setVistaAlzado(){
+    plant=0;
+    alz=1;
+    def=0;
+    perf=0;
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glTranslatef(0.9, 0.0, 0.0);
+
+    gluLookAt(3.0, 0.0, 0.0,
+              1.0, 0.0, 0.0,
+              0.0, 1.0, 0.0);
+}
+
+void igvCamara::setVistaPlanta() {
+    plant=1;
+    alz=0;
+    def=0;
+    perf=0;
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glTranslatef(0.9, 0.0, 0.0);
+
+    gluLookAt(0.001, 5.0, 0.0,
+              1.0, 0.0, 0.0,
+              0.0, 1.0, 0.0);
 }
