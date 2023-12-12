@@ -128,7 +128,7 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
         case 'v':
         case 'V':
             _instancia->camara.cambiar_vista();
-            /*_instancia->camara.aplicar();*/
+            _instancia->camara.aplicar();
             break;
         case '+':
             _instancia->camara.zoom(-0.05);
@@ -145,6 +145,7 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
             _instancia->escena.getSnake()->girarHor(-90); //giro hacia la izquierda de la serpiente
             break;
         case 'i':
+            _instancia->jugando=true;
             _instancia->escena.getSnake()->set_animacion(!_instancia->escena.getSnake()->get_animacion());
             break;
         case 'n':
@@ -161,7 +162,10 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
             _instancia->escena.set_ejes(!_instancia->escena.get_ejes());
             break;
         case 27: // tecla de escape para SALIR
-            exit ( 1 );
+            if(_instancia->jugando == false && _instancia->currentState == PLAYING){
+                _instancia->unaVezVistaNorm=false;
+                _instancia->currentState = MAIN_MENU;
+            }
             break;
     }
     glutPostRedisplay (); // renueva el contenido de la ventana de vision y redibuja la escena
@@ -223,18 +227,26 @@ void igvInterfaz::displayFunc (){
     glViewport ( 0, 0, _instancia->get_ancho_ventana (), _instancia->get_alto_ventana () );
     if(_instancia->currentState == MAIN_MENU){
         _instancia->camara.setVistaPerfil();
+        _instancia->camara.aplicar();
         _instancia->escena.visualizarMenu();
     }
     if (_instancia->currentState == PLAYING) {
-        _instancia->camara.setVistaNormal();
+        _instancia->unaVezVistaNormal();
         _instancia->escena.visualizar();
     }
     if(_instancia->currentState == CHANGE_SKIN){
-        _instancia->camara.setVistaPerfil();
         _instancia->escena.visualizarSkin();
     }
 
     glutSwapBuffers ();
+}
+
+void igvInterfaz::unaVezVistaNormal(){
+    if(unaVezVistaNorm == false){
+        _instancia->camara.setVistaNormal();
+        _instancia->camara.aplicar();
+        unaVezVistaNorm = true;
+    }
 }
 
 void igvInterfaz::mouseFunc ( GLint boton, GLint estado, GLint x, GLint y )

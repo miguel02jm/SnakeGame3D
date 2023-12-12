@@ -205,9 +205,9 @@ void igvEscena3D::visualizarMenu(void) {
     glPopMatrix();
 
     glPushMatrix();
-    glRotatef(-40,0,1,0);
+    glRotatef(-30,0,1,0);
     glRotatef(17,1,0,0);
-    glTranslatef(1.25,-2.25,0.5);
+    glTranslatef(1.5,-2.15,1);
     glScalef(1.5,1.5,1.5);
     snake.crearModelo2(skin);
     glPopMatrix();
@@ -242,24 +242,23 @@ void igvEscena3D::visualizarSkin(void) {
         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
     }
 
-    glPushMatrix();
-    glRotatef(-40,0,1,0);
+    glRotatef(-30,0,1,0);
     glRotatef(17,1,0,0);
     glTranslatef(0.25,2.3,0);
     snake.crearModelo2(skin1);
     glPopMatrix();
 
     glPushMatrix();
-    glRotatef(-40,0,1,0);
+    glRotatef(-30,0,1,0);
     glRotatef(17,1,0,0);
     glTranslatef(0,0.43,0);
     snake.crearModelo2(skin2);
     glPopMatrix();
 
     glPushMatrix();
-    glRotatef(-40,0,1,0);
+    glRotatef(-30,0,1,0);
     glRotatef(17,1,0,0);
-    glTranslatef(-0.2,-1.5,0);
+    glTranslatef(-0.4,-1.5,0);
     snake.crearModelo2(skin3);
     glPopMatrix();
 

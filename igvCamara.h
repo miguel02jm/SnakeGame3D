@@ -64,11 +64,6 @@ class igvCamara
 
     // Métodos
     void cambiar_vista();
-
-    int perf=0;
-    int plant=0;
-    int alz=0;
-    int def=0;
 public:
     // Constructores por defecto y destructor
     /// Constructor por defecto
@@ -79,8 +74,6 @@ public:
 
     void setVistaPerfil();
     void setVistaNormal();
-    void setVistaAlzado();
-    void setVistaPlanta();
 
     // Otros constructores
     igvCamara ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V );

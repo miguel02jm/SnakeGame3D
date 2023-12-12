@@ -63,6 +63,8 @@ class igvInterfaz
     /*int indice_vistas=0*/
 
     int currentState = MAIN_MENU;
+    bool unaVezVistaNorm=false;
+    bool jugando=false;
 
 public:
     static igvInterfaz& getInstancia ();
@@ -106,6 +108,9 @@ public:
     void set_ancho_ventana ( int _ancho_ventana );
 
     void set_alto_ventana ( int _alto_ventana );
+
+    void unaVezVistaNormal();
+
 };
 
 #endif   // __IGVINTERFAZ
