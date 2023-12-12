@@ -13,6 +13,8 @@
 #include "igvSnake.h"
 #include "igvApples.h"
 #include "igvBombs.h"
+#include <string>
+#include "igvPunto3D.h"
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
@@ -54,6 +56,14 @@ class igvEscena3D
     GLfloat skin[3] = { 0.1,0.4,0.1 };
 
     bool visualizandose=false;
+
+    int cont=0;
+
+    igvPunto3D Default = igvPunto3D(3.0, 2.0, 4.0);
+    igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
+    igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
+    igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
+
 public:
     // Constructores por defecto y destructor
     /// Constructor por defecto
@@ -61,7 +71,7 @@ public:
     /// Destructor
     ~igvEscena3D () = default;
 
-    void visualizar();
+    void visualizar(igvPunto3D camara);
     void visualizarMenu();
     void visualizarSkin();
 

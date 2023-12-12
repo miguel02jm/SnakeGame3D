@@ -95,6 +95,8 @@ public:
     // de visión y la transformación de proyección
     // asociadas a los parámetros de la cámara
     void zoom ( double factor ); // realiza un zoom sobre la cámara
+
+    igvPunto3D getP0();
 };
 
 #endif   // __IGVCAMARA

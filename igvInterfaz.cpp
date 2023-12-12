@@ -66,7 +66,7 @@ void igvInterfaz::configura_entorno ( int argc, char **argv, int _ancho_ventana
     glutCreateWindow ( _titulo.c_str () );
 
     glEnable ( GL_DEPTH_TEST ); // activa el ocultamiento de superficies por z-buffer
-    glClearColor ( 1.0, 1.0, 1.0, 0.0 ); // establece el color de fondo de la ventana
+    glClearColor(0.529, 0.808, 0.922, 0.0); // Establece el color de fondo de la ventana a un azul cielo
 
     glEnable ( GL_LIGHTING ); // activa la iluminacion de la escena
     glEnable ( GL_NORMALIZE ); // normaliza los vectores normales para calculo iluminacion
@@ -166,6 +166,9 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
                 _instancia->unaVezVistaNorm=false;
                 _instancia->currentState = MAIN_MENU;
             }
+            if(_instancia->jugando == true && _instancia->currentState == PLAYING){
+                exit ( 1 );
+            }
             break;
     }
     glutPostRedisplay (); // renueva el contenido de la ventana de vision y redibuja la escena
@@ -232,7 +235,7 @@ void igvInterfaz::displayFunc (){
     }
     if (_instancia->currentState == PLAYING) {
         _instancia->unaVezVistaNormal();
-        _instancia->escena.visualizar();
+        _instancia->escena.visualizar(_instancia->camara.getP0());
     }
     if(_instancia->currentState == CHANGE_SKIN){
         _instancia->escena.visualizarSkin();

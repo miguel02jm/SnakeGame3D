@@ -32,25 +32,29 @@ void igvEscena3D::pintar_ejes()
 }
 
 void igvEscena3D::CrearEscenario() {
-    // Dibuja el cubo grande
-    GLfloat verde[] = { 0, 1, 0, 1.0 };
-    glMaterialfv ( GL_FRONT, GL_DIFFUSE, verde );
-    glPushMatrix();
-    glTranslated(0, -0.6, 0);
-    glScaled(4, 1, 4);
-    glutWireCube(1);
-    glPopMatrix();
-
-    // Tamaño de los cubos pequeños
     float tamCasillaX = 4.0 / filas;
     float tamCasillaZ = 4.0 / columnas;
 
     for (int i = 0; i < filas; ++i) {
         for (int j = 0; j < columnas; ++j) {
+            // Determinar el color de la casilla (verde claro o verde oscuro)
+            GLfloat* color;
+            if ((i + j) % 2 == 0) {
+                GLfloat blanco[] = { 1, 1, 1, 1.0 };  // Cambia este color si es necesario
+                color = blanco;
+            } else {
+                GLfloat verde[] = { 0, 1, 0, 1.0 };  // Cambia este color si es necesario
+                color = verde;
+            }
+
+            // Establecer el color de la casilla
+            glMaterialfv(GL_FRONT, GL_DIFFUSE, color);
+
+            // Dibujar el cubo con una escala menos en el eje y
             glPushMatrix();
-            glTranslated(-2 + j * tamCasillaX + tamCasillaX / 2, -0.6, 2 - i * tamCasillaZ - tamCasillaZ / 2);
-            glScaled(tamCasillaX, 1, tamCasillaZ);
-            glutWireCube(1);
+            glTranslated(-2 + j * tamCasillaX + tamCasillaX / 2, -0.35, 2 - i * tamCasillaZ - tamCasillaZ / 2);
+            glScaled(tamCasillaX, 0.5, tamCasillaZ);
+            glutSolidCube(1);
             glPopMatrix();
         }
     }
@@ -68,6 +72,7 @@ void igvEscena3D::verificarColision() {
     }else if ((snake.getCoordX() >= apples.getCoordXManzana() - 0.15 && snake.getCoordX() <= apples.getCoordXManzana() + 0.15) &&
               (snake.getCoordZ() >= apples.getCoordZManzana() - 0.15 && snake.getCoordZ() <= apples.getCoordZManzana() + 0.15)) {
 
+        cont += 100;
         apples.generarCoordsManzanas();
         bombs.generarCoordsBombas();
 
@@ -91,20 +96,46 @@ igvSnake* igvEscena3D::getSnake(){
     return &snake;
 }
 
-void igvEscena3D::visualizar()
+void igvEscena3D::visualizar(igvPunto3D camara)
 {
+    GLfloat negro[] = { 0, 0, 0, 1.0 };
+
     visualizandose = false;
 
     GLfloat luz0[] = { 10, 8, 9, 1 };
     glLightfv ( GL_LIGHT0, GL_POSITION, luz0 );
     glEnable ( GL_LIGHT0 );
 
+// Dentro de la función de dibujo (display callback):
+    glPushMatrix();
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+
+// Crear una cadena que combine "Puntuacion:" y el valor de cont
+    std::string text4 = "Puntuacion: " + std::to_string(cont);
+
+    if(camara==igvPunto3D(Default)){
+        glRasterPos3f(0.93, -2.57, 0);
+    }
+    if(camara==igvPunto3D(Planta)){
+        glRasterPos3f(2.6, -2.5, -0.75);
+    }
+    if(camara==igvPunto3D(Alzado)){
+        glRasterPos3f(0.75, -2.6, 0);
+    }
+    if(camara==igvPunto3D(Perfil)){
+        glRasterPos3f(1.5, -2.6, -0.75);
+    }
+
+
+// Mostrar cada carácter de la cadena combinada
+    for (size_t i = 0; i < text4.length(); ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text4[i]);
+    }
+
+    glPopMatrix();
+
     // crear el modelo
     glPushMatrix (); // guarda la matriz de modelado
-
-    // se pintan los ejes
-    if ( ejes )
-    { pintar_ejes (); }
 
     glRotated(ejeX, 1, 0, 0);
     glRotated(ejeY, 0, 1, 0);
@@ -130,7 +161,7 @@ void igvEscena3D::visualizarMenu(void) {
     GLfloat verde[] = { 0.5, 1.0, 0.5, 1.0 };
 
     glPushMatrix();
-    glMaterialfv(GL_FRONT, GL_DIFFUSE, verde);
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
     glRasterPos3f(button1X + 1.25, button1Y + buttonHeight / 2 + 1, 0.1);
     const char* text4 = "Snake Game 3D";
     for (int i = 0; text4[i] != '\0'; ++i) {

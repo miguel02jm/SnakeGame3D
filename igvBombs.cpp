@@ -34,7 +34,7 @@ void igvBombs::crearBomba() {
     glMaterialfv(GL_FRONT, GL_DIFFUSE, color_bomba);
 
     glPushMatrix();
-    glTranslatef(coordXBomba, 0, coordZBomba);
+    glTranslatef(coordXBomba, 0.05, coordZBomba);
     glutSolidSphere(0.15, 20, 20);
     glPopMatrix();
 }

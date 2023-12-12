@@ -72,7 +72,7 @@ void igvSnake::CrearLenguaSerpiente() {
 void igvSnake::crearModelo(GLfloat *color) {
     // Dibuja la cabeza de la serpiente en las coordenadas de la cabeza
     glPushMatrix();
-    glTranslatef(coordX, 0, coordZ);
+    glTranslatef(coordX, 0.08, coordZ);
     glRotatef(giro_hor, 0, 1, 0);
     glRotatef(giro_vert, 1, 0, 0);
     glScalef(0.35, 0.35, 0.35);
@@ -86,7 +86,7 @@ void igvSnake::crearModelo(GLfloat *color) {
     for (size_t i = 0; i < segmentos.size(); ++i) {
         const auto& segmento = segmentos[i];
         glPushMatrix();
-        glTranslatef(segmento.first, 0, segmento.second);
+        glTranslatef(segmento.first, 0.08, segmento.second);
         glRotatef(giro_hor, 0, 1, 0);
         glRotatef(giro_vert, 1, 0, 0);
         glScalef(0.35, 0.35, 0.35);

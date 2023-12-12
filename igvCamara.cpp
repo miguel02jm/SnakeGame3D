@@ -158,3 +158,7 @@ void igvCamara::setVistaPerfil() {
 void igvCamara::setVistaNormal() {
     P0 = igvPunto3D(Default);
 }
+
+igvPunto3D igvCamara::getP0() {
+    return P0;
+}

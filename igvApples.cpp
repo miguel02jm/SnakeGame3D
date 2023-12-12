@@ -34,7 +34,7 @@ void igvApples::crearManzana() {
     glMaterialfv(GL_FRONT, GL_DIFFUSE, color_manzana);
 
     glPushMatrix();
-    glTranslatef(coordXManzana, 0, coordZManzana);
+    glTranslatef(coordXManzana, 0.05, coordZManzana);
     glutSolidSphere(0.15, 20, 20);
     glPopMatrix();
 }
