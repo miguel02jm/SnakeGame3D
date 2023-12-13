@@ -32,6 +32,8 @@ private:
 
     int fila1 = 5;
     int columna1 = 5;
+
+    bool colision=false;
 public:
     void CrearTorsoSerpiente(GLfloat color[]);
     void CrearCabezaSerpiente(GLfloat color[]);
@@ -67,6 +69,13 @@ public:
     void moverSerpiente(float oldCoordX, float oldCoordZ);
 
     bool hayColision();
+
+    void reset();
+
+    std::vector<std::pair<float, float>> getSegmentos();
+
+    bool getColision();
+    void setColision(bool _colision);
 };
 
 

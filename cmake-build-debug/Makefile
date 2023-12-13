@@ -200,6 +200,30 @@ igvCamara.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvCamara.cpp.s
 .PHONY : igvCamara.cpp.s
 
+igvClouds.obj: igvClouds.cpp.obj
+.PHONY : igvClouds.obj
+
+# target to build an object file
+igvClouds.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvClouds.cpp.obj
+.PHONY : igvClouds.cpp.obj
+
+igvClouds.i: igvClouds.cpp.i
+.PHONY : igvClouds.i
+
+# target to preprocess a source file
+igvClouds.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvClouds.cpp.i
+.PHONY : igvClouds.cpp.i
+
+igvClouds.s: igvClouds.cpp.s
+.PHONY : igvClouds.s
+
+# target to generate assembly for a file
+igvClouds.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvClouds.cpp.s
+.PHONY : igvClouds.cpp.s
+
 igvEscena3D.obj: igvEscena3D.cpp.obj
 .PHONY : igvEscena3D.obj
 
@@ -338,6 +362,9 @@ help:
 	@echo ... igvCamara.obj
 	@echo ... igvCamara.i
 	@echo ... igvCamara.s
+	@echo ... igvClouds.obj
+	@echo ... igvClouds.i
+	@echo ... igvClouds.s
 	@echo ... igvEscena3D.obj
 	@echo ... igvEscena3D.i
 	@echo ... igvEscena3D.s

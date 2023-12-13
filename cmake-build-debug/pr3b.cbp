@@ -112,6 +112,12 @@
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvCamara.h">
 			<Option target="pr3b"/>
 		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvClouds.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvClouds.h">
+			<Option target="pr3b"/>
+		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvEscena3D.cpp">
 			<Option target="pr3b"/>
 		</Unit>

@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
         igvApples.h
         igvBombs.cpp
         igvBombs.h
+        igvClouds.cpp
+        igvClouds.h
 )
 
 if (LINUX)

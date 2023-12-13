@@ -257,6 +257,35 @@ void igvSnake::moverSerpiente(float oldCoordX, float oldCoordZ) {
     }
 
     if (hayColision()) {
-        exit(1);
+        colision=true;
     }
 }
+
+void igvSnake::reset(){
+    // Restablecer las coordenadas y orientaciones iniciales
+    coordX = 0;
+    coordZ = 0;
+    giro_vert = 0;
+    giro_hor = 0;
+    animacion = false;
+
+    // Limpiar el vector de segmentos
+    segmentos.clear();
+
+    // Establecer las filas y columnas iniciales
+    fila1 = 5;
+    columna1 = 5;
+}
+
+std::vector<std::pair<float, float>> igvSnake::getSegmentos(){
+    return segmentos;
+}
+
+bool igvSnake::getColision() {
+    return colision;
+}
+
+void igvSnake::setColision(bool _colision) {
+    colision = _colision;
+}
+

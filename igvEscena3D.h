@@ -15,6 +15,7 @@
 #include "igvBombs.h"
 #include <string>
 #include "igvPunto3D.h"
+#include "igvClouds.h"
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
@@ -37,6 +38,7 @@ class igvEscena3D
     igvSnake snake;
     igvApples apples;
     igvBombs bombs;
+    igvClouds clouds;
 
     static const int filas = 10;
     static const int columnas = 10;
@@ -50,12 +52,16 @@ class igvEscena3D
     float button5X = -0.8, button5Y = -0.5;
     float button6X = -0.8, button6Y = -2.35;
 
+    float button7X = -2, button7Y = -0.5, button3Width = 4, button3Height = 0.75;
+    float button8X = -2, button8Y = -2.0;
+
     GLfloat skin1[3] = { 0.1,0.4,0.1 };
     GLfloat skin2[3] = {1.0, 0.5, 0.5};
     GLfloat skin3[3] = {0.5, 0.5, 1.0};
     GLfloat skin[3] = { 0.1,0.4,0.1 };
 
     bool visualizandose=false;
+    bool visualizandoPausa=false;
 
     int cont=0;
 
@@ -63,6 +69,8 @@ class igvEscena3D
     igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
     igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
     igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
+
+    bool bomba = false;
 
 public:
     // Constructores por defecto y destructor
@@ -74,6 +82,8 @@ public:
     void visualizar(igvPunto3D camara);
     void visualizarMenu();
     void visualizarSkin();
+    void visualizarPausa();
+    void visualizarFinal();
 
     bool get_ejes ();
 
@@ -87,6 +97,8 @@ public:
     void setEjeY(float rotacion);
 
     igvSnake* getSnake();
+    igvBombs* getBombs();
+    igvApples* getApples();
 
     void pintar_ejes();
 
@@ -95,6 +107,12 @@ public:
     void setSkin3();
 
     bool getVisualizandose();
+    bool getVisualizandoPausa();
+
+    bool getBomba();
+    void setBomba(bool _bomba);
+
+    igvClouds* getClouds();
 };
 
 #endif   // __IGVESCENA3D

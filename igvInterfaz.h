@@ -29,7 +29,8 @@ enum Vista
 enum GameState {
     MAIN_MENU,
     PLAYING,
-    CHANGE_SKIN
+    CHANGE_SKIN,
+    FINAL
 };
 
 /**
@@ -65,6 +66,7 @@ class igvInterfaz
     int currentState = MAIN_MENU;
     bool unaVezVistaNorm=false;
     bool jugando=false;
+    bool pausa=false;
 
 public:
     static igvInterfaz& getInstancia ();

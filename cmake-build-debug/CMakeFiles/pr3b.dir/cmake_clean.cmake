@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/pr3b.dir/igvBombs.cpp.obj.d"
   "CMakeFiles/pr3b.dir/igvCamara.cpp.obj"
   "CMakeFiles/pr3b.dir/igvCamara.cpp.obj.d"
+  "CMakeFiles/pr3b.dir/igvClouds.cpp.obj"
+  "CMakeFiles/pr3b.dir/igvClouds.cpp.obj.d"
   "CMakeFiles/pr3b.dir/igvEscena3D.cpp.obj"
   "CMakeFiles/pr3b.dir/igvEscena3D.cpp.obj.d"
   "CMakeFiles/pr3b.dir/igvInterfaz.cpp.obj"

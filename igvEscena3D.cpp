@@ -61,7 +61,6 @@ void igvEscena3D::CrearEscenario() {
 }
 
 void igvEscena3D::verificarColision() {
-
     if (Primera_Generacion == true) {
         srand(time(NULL));
 
@@ -69,18 +68,50 @@ void igvEscena3D::verificarColision() {
         bombs.generarCoordsBombas();
 
         Primera_Generacion = false;
-    }else if ((snake.getCoordX() >= apples.getCoordXManzana() - 0.15 && snake.getCoordX() <= apples.getCoordXManzana() + 0.15) &&
-              (snake.getCoordZ() >= apples.getCoordZManzana() - 0.15 && snake.getCoordZ() <= apples.getCoordZManzana() + 0.15)) {
+    }else if ((snake.getCoordX() == apples.getCoordXManzana()) &&
+              (snake.getCoordZ() == apples.getCoordZManzana())) {
 
-        cont += 100;
-        apples.generarCoordsManzanas();
-        bombs.generarCoordsBombas();
+        while (true) {
 
+            apples.generarCoordsManzanas();
+            bombs.generarCoordsBombas();
+
+            bool colisionConSerpiente = false;
+
+            if((snake.getCoordX() == apples.getCoordXManzana()) && (snake.getCoordZ() == apples.getCoordZManzana())
+               || ((snake.getCoordX() == bombs.getCoordXBomba()) && (snake.getCoordZ() == bombs.getCoordZBomba()))){
+                colisionConSerpiente = true;
+                break;
+            }
+
+            if((bombs.getCoordXBomba() == apples.getCoordXManzana()) && (bombs.getCoordZBomba() == apples.getCoordZManzana())){
+                colisionConSerpiente = true;
+                break;
+            }
+
+            for (const auto& segmento : snake.getSegmentos()) {
+                if (segmento.first == apples.getCoordXManzana() && segmento.second == apples.getCoordZManzana()) {
+                    colisionConSerpiente = true;
+                    break;
+                }
+                if (segmento.first == bombs.getCoordXBomba() && segmento.second == bombs.getCoordZBomba()) {
+                    colisionConSerpiente = true;
+                    break;
+                }
+            }
+
+            // Si no hay colisión, sal del bucle
+            if (!colisionConSerpiente) {
+                break;
+            }
+        }
+
+        cont+=100;
         snake.crecer();
 
-    }else if((snake.getCoordX() >= bombs.getCoordXBomba() - 0.15 && snake.getCoordX() <= bombs.getCoordXBomba() + 0.15) &&
-             (snake.getCoordZ() >= bombs.getCoordZBomba() - 0.15 && snake.getCoordZ() <= bombs.getCoordZBomba() + 0.15)){
-        exit(1);
+    }else if((snake.getCoordX() == bombs.getCoordXBomba()) &&
+             (snake.getCoordZ() == bombs.getCoordZBomba())){
+        bomba = true;
     }
 }
 
@@ -96,11 +127,20 @@ igvSnake* igvEscena3D::getSnake(){
     return &snake;
 }
 
+igvBombs* igvEscena3D::getBombs() {
+    return &bombs;
+}
+
+igvApples* igvEscena3D::getApples() {
+    return &apples;
+}
+
 void igvEscena3D::visualizar(igvPunto3D camara)
 {
     GLfloat negro[] = { 0, 0, 0, 1.0 };
 
     visualizandose = false;
+    visualizandoPausa = false;
 
     GLfloat luz0[] = { 10, 8, 9, 1 };
     glLightfv ( GL_LIGHT0, GL_POSITION, luz0 );
@@ -144,6 +184,10 @@ void igvEscena3D::visualizar(igvPunto3D camara)
     apples.crearManzana();
     bombs.crearBomba();
     snake.crearModelo(skin);
+
+    if(camara!=igvPunto3D(Planta)){
+        clouds.GenerarNubes();
+    }
 
     glPopMatrix();
 }
@@ -335,7 +379,169 @@ void igvEscena3D::visualizarSkin(void) {
 
     glPopMatrix();
 
-    visualizandose=true;
+    visualizandose = true;
+}
+
+void igvEscena3D::visualizarPausa() {
+    GLfloat luz0[] = { 10, 8, 9, 1 };
+    glLightfv ( GL_LIGHT0, GL_POSITION, luz0 );
+    glEnable ( GL_LIGHT0 );
+
+    glPushMatrix ();
+
+    GLfloat negro[] = { 0, 0, 0, 1 };
+    GLfloat verde[] = { 0.5, 1.0, 0.5, 1.0 };
+
+    glPushMatrix();
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+    glRasterPos3f(button1X + 1.65, button1Y + buttonHeight / 2 + 1, 0.1);
+    const char* text4 = "Pausa";
+    for (int i = 0; text4[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text4[i]);
+    }
+    glPopMatrix();
+
+    glPushMatrix();
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+    glRasterPos3f(button1X + 1.15, button1Y + buttonHeight / 2, 0.1);
+    std::string text5 = "Puntuacion: " + std::to_string(cont);
+    for (int i = 0; text5[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text5[i]);
+    }
+    glPopMatrix();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, verde);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(button2X, button2Y);
+    glVertex2f(button2X + buttonWidth, button2Y);
+    glVertex2f(button2X, button2Y + buttonHeight);
+
+    glVertex2f(button2X + buttonWidth, button2Y);
+    glVertex2f(button2X + buttonWidth, button2Y + buttonHeight);
+    glVertex2f(button2X, button2Y + buttonHeight);
+    glEnd();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+
+    // Establece la posición del raster para el texto
+    glRasterPos3f(button2X + 1.5, button2Y + buttonHeight / 2 - 0.1, 0.1);
+
+    // Renderiza el texto "Jugar"
+    const char* text2 = "Reanudar";
+    for (int i = 0; text2[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text2[i]);
+    }
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, verde);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(button3X, button3Y);
+    glVertex2f(button3X + buttonWidth, button3Y);
+    glVertex2f(button3X, button3Y + buttonHeight);
+
+    glVertex2f(button3X + buttonWidth, button3Y);
+    glVertex2f(button3X + buttonWidth, button3Y + buttonHeight);
+    glVertex2f(button3X, button3Y + buttonHeight);
+    glEnd();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+
+    // Establece la posición del raster para el texto
+    glRasterPos3f(button3X + 1.15, button3Y + buttonHeight / 2 - 0.1, 0.1);
+
+    // Renderiza el texto "Jugar"
+    const char* text3 = "Finalizar partida";
+    for (int i = 0; text3[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text3[i]);
+    }
+
+    glPopMatrix();
+
+    visualizandoPausa = true;
+}
+
+void igvEscena3D::visualizarFinal() {
+    visualizandoPausa = false;
+
+    GLfloat luz0[] = { 10, 8, 9, 1 };
+    glLightfv ( GL_LIGHT0, GL_POSITION, luz0 );
+    glEnable ( GL_LIGHT0 );
+
+    glPushMatrix ();
+
+    GLfloat negro[] = { 0, 0, 0, 1 };
+    GLfloat verde[] = { 0.5, 1.0, 0.5, 1.0 };
+
+    glPushMatrix();
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+    glRasterPos3f(button1X + 1, button1Y + buttonHeight / 2 + 1, 0.1);
+    const char* text4 = "Final de la partida";
+    for (int i = 0; text4[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text4[i]);
+    }
+    glPopMatrix();
+
+    glPushMatrix();
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+    glRasterPos3f(button1X + 0.8, button1Y + buttonHeight / 2, 0.1);
+    std::string text5 = "Puntuacion final: " + std::to_string(cont);
+    for (int i = 0; text5[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text5[i]);
+    }
+    glPopMatrix();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, verde);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(button7X, button7Y);
+    glVertex2f(button7X + button3Width, button7Y);
+    glVertex2f(button7X, button7Y + button3Height);
+
+    glVertex2f(button7X + button3Width, button7Y);
+    glVertex2f(button7X + button3Width, button7Y + button3Height);
+    glVertex2f(button7X, button7Y + button3Height);
+    glEnd();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+
+    // Establece la posición del raster para el texto
+    glRasterPos3f(button7X + 1.8, button7Y + button3Height / 2 - 0.1, 0.1);
+
+    // Renderiza el texto "Jugar"
+    const char* text2 = "Salir";
+    for (int i = 0; text2[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text2[i]);
+    }
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, verde);
+    glBegin(GL_TRIANGLES);
+    glVertex2f(button8X, button8Y);
+    glVertex2f(button8X + button3Width, button8Y);
+    glVertex2f(button8X, button8Y + button3Height);
+
+    glVertex2f(button8X + button3Width, button8Y);
+    glVertex2f(button8X + button3Width, button8Y + button3Height);
+    glVertex2f(button8X, button8Y + button3Height);
+    glEnd();
+
+    glMaterialfv(GL_FRONT, GL_DIFFUSE, negro);
+
+    // Establece la posición del raster para el texto
+    glRasterPos3f(button8X + 1, button8Y + button3Height / 2 - 0.1, 0.1);
+
+    // Renderiza el texto "Jugar"
+    const char* text3 = "Ir al menu principal";
+    for (int i = 0; text3[i] != '\0'; ++i) {
+        glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, text3[i]);
+    }
+
+    glPopMatrix();
+
+    glPushMatrix();
+    glRotatef(-30,0,1,0);
+    glRotatef(17,1,0,0);
+    glTranslatef(1.5,-2.15,1);
+    glScalef(1.5,1.5,1.5);
+    snake.crearModelo2(skin);
+    glPopMatrix();
 }
 
 bool igvEscena3D::getVisualizandose() {
@@ -371,4 +577,20 @@ void igvEscena3D::setSkin2() {
 
 void igvEscena3D::setSkin3() {
     memcpy(skin, skin3, sizeof(skin));
+}
+
+bool igvEscena3D::getVisualizandoPausa() {
+    return visualizandoPausa;
+}
+
+bool igvEscena3D::getBomba(){
+    return bomba;
+}
+
+void igvEscena3D::setBomba(bool _bomba){
+    bomba = _bomba;
+}
+
+igvClouds* igvEscena3D::getClouds(){
+    return &clouds;
 }

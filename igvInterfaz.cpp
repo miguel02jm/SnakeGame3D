@@ -139,10 +139,14 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
             _instancia->camara.aplicar();
             break;
         case 'a':
-            _instancia->escena.getSnake()->girarHor(90); //giro hacia la derecha de la serpiente
+            if(_instancia->currentState == PLAYING){
+                _instancia->escena.getSnake()->girarHor(90); //giro hacia la derecha de la serpiente
+            }
             break;
         case 'd':
-            _instancia->escena.getSnake()->girarHor(-90); //giro hacia la izquierda de la serpiente
+            if(_instancia->currentState == PLAYING){
+                _instancia->escena.getSnake()->girarHor(-90); //giro hacia la izquierda de la serpiente
+            }
             break;
         case 'i':
             _instancia->jugando=true;
@@ -162,12 +166,9 @@ void igvInterfaz::keyboardFunc ( unsigned char key, int x, int y )
             _instancia->escena.set_ejes(!_instancia->escena.get_ejes());
             break;
         case 27: // tecla de escape para SALIR
-            if(_instancia->jugando == false && _instancia->currentState == PLAYING){
+            if(_instancia->currentState == PLAYING){
+                _instancia->pausa = true;
                 _instancia->unaVezVistaNorm=false;
-                _instancia->currentState = MAIN_MENU;
-            }
-            if(_instancia->jugando == true && _instancia->currentState == PLAYING){
-                exit ( 1 );
             }
             break;
     }
@@ -233,14 +234,32 @@ void igvInterfaz::displayFunc (){
         _instancia->camara.aplicar();
         _instancia->escena.visualizarMenu();
     }
-    if (_instancia->currentState == PLAYING) {
+    if(_instancia->escena.getBomba() == true || _instancia->escena.getSnake()->getColision()==true){
+        _instancia->escena.setBomba(false);
+        _instancia->escena.getSnake()->setColision(false);
+        _instancia->escena.getSnake()->reset();
+        _instancia->escena.getBombs()->generarCoordsBombas();
+        _instancia->escena.getApples()->generarCoordsManzanas();
+        _instancia->camara.setVistaPerfil();
+        _instancia->camara.aplicar();
+        _instancia->currentState = FINAL;
+    }
+    if (_instancia->currentState == PLAYING && _instancia->pausa == false) {
         _instancia->unaVezVistaNormal();
         _instancia->escena.visualizar(_instancia->camara.getP0());
+    }
+    if (_instancia->currentState == PLAYING && _instancia->pausa == true) {
+        _instancia->camara.setVistaPerfil();
+        _instancia->camara.aplicar();
+        _instancia->escena.visualizarPausa();
     }
     if(_instancia->currentState == CHANGE_SKIN){
         _instancia->escena.visualizarSkin();
     }
-
+    if(_instancia->currentState == FINAL){
+        _instancia->escena.visualizarFinal();
+        _instancia->unaVezVistaNorm=false;
+    }
     glutSwapBuffers ();
 }
 
@@ -256,7 +275,6 @@ void igvInterfaz::mouseFunc ( GLint boton, GLint estado, GLint x, GLint y )
 {
     if(_instancia->currentState == MAIN_MENU){
         if (boton == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
-            printf("x = %d, y = %d\n", x, y);
             if (x >= 82 && x <= 405 &&
                 y >= 126 && y <= 187) {
                 _instancia->currentState = PLAYING;
@@ -272,7 +290,6 @@ void igvInterfaz::mouseFunc ( GLint boton, GLint estado, GLint x, GLint y )
     }
     if(_instancia->currentState == CHANGE_SKIN){
         if (boton == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
-            printf("x = %d, y = %d\n", x, y);
             if (x >= 180 && x <= 319 &&
                 y >= 108 && y <= 141 && _instancia->escena.getVisualizandose()==true) {
                 _instancia->escena.setSkin1();
@@ -289,32 +306,63 @@ void igvInterfaz::mouseFunc ( GLint boton, GLint estado, GLint x, GLint y )
             glutPostRedisplay();
         }
     }
+    if(_instancia->currentState == PLAYING && _instancia->pausa == true){
+        if (boton == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
+            if (x >= 82 && x <= 405 &&
+                y >= 251 && y <= 312 ) {
+                _instancia->pausa = false;
+            } else if (x >= 82 && x <= 405 &&
+                       y >= 375 && y <= 437) {
+                _instancia->escena.getSnake()->reset();
+                _instancia->escena.getBombs()->generarCoordsBombas();
+                _instancia->escena.getApples()->generarCoordsManzanas();
+                _instancia->currentState = FINAL;
+            }
+            glutPostRedisplay();
+        }
+    }
+    if(_instancia->currentState == FINAL && _instancia->escena.getVisualizandoPausa() == false){
+        if (boton == GLUT_LEFT_BUTTON && estado == GLUT_DOWN) {
+            printf("x = %d, y = %d\n", x, y);
+            if (x >= 82 && x <= 405 &&
+                y >= 229 && y <= 291 ) {
+                exit(1);
+            } else if (x >= 82 && x <= 405 &&
+                       y >= 354 && y <= 416) {
+                _instancia->pausa = false;
+                _instancia->currentState = MAIN_MENU;
+            }
+        }
+    }
 }
 
 void igvInterfaz::IdleFunc() {
     //Codigo para que la serpiente avance automaticamente
-    if(_instancia->escena.getSnake()->get_animacion()){
-        float oldCoordX = _instancia->escena.getSnake()->getCoordX();
-        float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
+    if(_instancia->pausa == false){
+        if(_instancia->escena.getSnake()->get_animacion()){
+            float oldCoordX = _instancia->escena.getSnake()->getCoordX();
+            float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
 
-        float fila = _instancia->escena.getSnake()->getFila();
-        float columna = _instancia->escena.getSnake()->getColumna();
+            float fila = _instancia->escena.getSnake()->getFila();
+            float columna = _instancia->escena.getSnake()->getColumna();
 
-        if (_instancia->escena.getSnake()->getGiroHor() == 0) {
-            _instancia->escena.getSnake()->setFila(fila += 1);
-            _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
-        } else if (_instancia->escena.getSnake()->getGiroHor() == 90) {
-            _instancia->escena.getSnake()->setColumna(columna += 1);
-            _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
-        } else if (_instancia->escena.getSnake()->getGiroHor() == 180) {
-            _instancia->escena.getSnake()->setFila(fila -= 1);
-            _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
-        } else if (_instancia->escena.getSnake()->getGiroHor() == 270) {
-            _instancia->escena.getSnake()->setColumna(columna -= 1);
-            _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
+            if (_instancia->escena.getSnake()->getGiroHor() == 0) {
+                _instancia->escena.getSnake()->setFila(fila += 1);
+                _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
+            } else if (_instancia->escena.getSnake()->getGiroHor() == 90) {
+                _instancia->escena.getSnake()->setColumna(columna += 1);
+                _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
+            } else if (_instancia->escena.getSnake()->getGiroHor() == 180) {
+                _instancia->escena.getSnake()->setFila(fila -= 1);
+                _instancia->escena.getSnake()->setCoordZ(_instancia->escena.getSnake()->getFila());
+            } else if (_instancia->escena.getSnake()->getGiroHor() == 270) {
+                _instancia->escena.getSnake()->setColumna(columna -= 1);
+                _instancia->escena.getSnake()->setCoordX(_instancia->escena.getSnake()->getColumna());
+            }
+            _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
         }
-        _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
     }
+    _instancia->escena.getClouds()->setCoordX(0.5);
     glutPostRedisplay();
 }
 
