@@ -28,8 +28,6 @@ private:
     static const int filas = 10;
     static const int columnas = 10;
 
-    int matrizEscenario[filas][columnas];
-
     int fila1 = 5;
     int columna1 = 5;
 public:
@@ -58,12 +56,11 @@ public:
 
     void crecer();
 
-    int obtenerFilaDesdeCoordZ(float coordZ);
-    int obtenerColumnaDesdeCoordX(float coordX);
-
     void moverSerpiente(float oldCoordX, float oldCoordZ);
 
     bool hayColision();
+
+    std::vector<std::pair<float, float>> getSegmentos();
 };
 
 

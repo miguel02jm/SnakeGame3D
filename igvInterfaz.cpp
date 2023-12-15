@@ -232,7 +232,6 @@ void igvInterfaz::displayFunc ()
 }
 
 void igvInterfaz::IdleFunc() {
-    // Código para que la serpiente avance automáticamente
     if(_instancia->escena.getSnake()->get_animacion()){
         float oldCoordX = _instancia->escena.getSnake()->getCoordX();
         float oldCoordZ = _instancia->escena.getSnake()->getCoordZ();
@@ -256,14 +255,13 @@ void igvInterfaz::IdleFunc() {
         _instancia->escena.getSnake()->moverSerpiente(oldCoordX, oldCoordZ);
     }
 
+    _instancia->escena.getClouds()->setCoordX(0.5);
+
     glutPostRedisplay();
 }
 
 void igvInterfaz::TimerFunc(int value) {
-    // Configura el temporizador para la próxima llamada
     glutTimerFunc(500, TimerFunc, 0);
-
-    // Llama a IdleFunc para que la serpiente avance
     IdleFunc();
 }
 
@@ -275,8 +273,6 @@ void igvInterfaz::inicializa_callbacks () {
     glutSpecialFunc(SpecialFunc);
     glutReshapeFunc(reshapeFunc);
     glutDisplayFunc(displayFunc);
-
-    // Establece el temporizador inicial
     glutTimerFunc(0, TimerFunc, 0);
 }
 

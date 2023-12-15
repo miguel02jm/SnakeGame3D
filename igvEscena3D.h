@@ -12,6 +12,7 @@
 #include "igvSnake.h"
 #include "igvApples.h"
 #include "igvBombs.h"
+#include "igvClouds.h"
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 
@@ -34,10 +35,10 @@ class igvEscena3D
       igvSnake snake;
       igvApples apples;
       igvBombs bombs;
+      igvClouds clouds;
 
     static const int filas = 10;
     static const int columnas = 10;
-    int matrizEscenario[filas][columnas];
 
    public:
       // Constructores por defecto y destructor
@@ -62,6 +63,8 @@ class igvEscena3D
       void setEjeY(float rotacion);
 
       igvSnake* getSnake();
+
+      igvClouds* getClouds();
 
       void pintar_ejes();
 };

@@ -113,6 +113,14 @@ build CMakeFiles/pr3b.dir/igvBombs.cpp.obj: CXX_COMPILER__pr3b_unscanned_Debug C
   OBJECT_DIR = CMakeFiles\pr3b.dir
   OBJECT_FILE_DIR = CMakeFiles\pr3b.dir
 
+build CMakeFiles/pr3b.dir/igvClouds.cpp.obj: CXX_COMPILER__pr3b_unscanned_Debug C$:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas$ -$ Sesiones/SnakeGame3D/igvClouds.cpp || cmake_object_order_depends_target_pr3b
+  DEFINES = -DFREEGLUT_LIB_PRAGMAS=0 -DFREEGLUT_STATIC=1
+  DEP_FILE = CMakeFiles\pr3b.dir\igvClouds.cpp.obj.d
+  FLAGS = -g -std=gnu++14 -fdiagnostics-color=always
+  INCLUDES = -I"C:/Users/mange/Desktop/Miguel/Universidad/IGV/Prácticas - Sesiones/SnakeGame3D/." -isystem C:/Users/mange/.conan2/p/opengd9728560ae872/p/include -isystem C:/Users/mange/.conan2/p/khrplf8ad437cff9db/p/include -isystem C:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/include
+  OBJECT_DIR = CMakeFiles\pr3b.dir
+  OBJECT_FILE_DIR = CMakeFiles\pr3b.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target pr3b
@@ -121,7 +129,7 @@ build CMakeFiles/pr3b.dir/igvBombs.cpp.obj: CXX_COMPILER__pr3b_unscanned_Debug C
 #############################################
 # Link the executable pr3b.exe
 
-build pr3b.exe: CXX_EXECUTABLE_LINKER__pr3b_Debug CMakeFiles/pr3b.dir/igvCamara.cpp.obj CMakeFiles/pr3b.dir/igvEscena3D.cpp.obj CMakeFiles/pr3b.dir/igvInterfaz.cpp.obj CMakeFiles/pr3b.dir/igvPunto3D.cpp.obj CMakeFiles/pr3b.dir/main.cpp.obj CMakeFiles/pr3b.dir/igvSnake.cpp.obj CMakeFiles/pr3b.dir/igvApples.cpp.obj CMakeFiles/pr3b.dir/igvBombs.cpp.obj | C$:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/lib/libglut.a
+build pr3b.exe: CXX_EXECUTABLE_LINKER__pr3b_Debug CMakeFiles/pr3b.dir/igvCamara.cpp.obj CMakeFiles/pr3b.dir/igvEscena3D.cpp.obj CMakeFiles/pr3b.dir/igvInterfaz.cpp.obj CMakeFiles/pr3b.dir/igvPunto3D.cpp.obj CMakeFiles/pr3b.dir/main.cpp.obj CMakeFiles/pr3b.dir/igvSnake.cpp.obj CMakeFiles/pr3b.dir/igvApples.cpp.obj CMakeFiles/pr3b.dir/igvBombs.cpp.obj CMakeFiles/pr3b.dir/igvClouds.cpp.obj | C$:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/lib/libglut.a
   FLAGS = -g
   LINK_LIBRARIES = C:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/lib/libglut.a  -lgdi32  -lwinmm  -luser32  -lopengl32  -lglu32  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/mange/.conan2/p/b/freeg6d89ce691c2f0/p/lib

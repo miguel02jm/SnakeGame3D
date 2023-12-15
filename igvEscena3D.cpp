@@ -55,7 +55,6 @@ void igvEscena3D::CrearEscenario() {
 }
 
 void igvEscena3D::verificarColision() {
-
     if (Primera_Generacion == true) {
         srand(time(NULL));
 
@@ -63,16 +62,48 @@ void igvEscena3D::verificarColision() {
         bombs.generarCoordsBombas();
 
         Primera_Generacion = false;
-    }else if ((snake.getCoordX() >= apples.getCoordXManzana() - 0.15 && snake.getCoordX() <= apples.getCoordXManzana() + 0.15) &&
-        (snake.getCoordZ() >= apples.getCoordZManzana() - 0.15 && snake.getCoordZ() <= apples.getCoordZManzana() + 0.15)) {
+    }else if ((snake.getCoordX() == apples.getCoordXManzana()) &&
+        (snake.getCoordZ() == apples.getCoordZManzana())) {
 
-        apples.generarCoordsManzanas();
-        bombs.generarCoordsBombas();
+        while (true) {
+
+            apples.generarCoordsManzanas();
+            bombs.generarCoordsBombas();
+
+            bool colisionConSerpiente = false;
+
+            if((snake.getCoordX() == apples.getCoordXManzana()) && (snake.getCoordZ() == apples.getCoordZManzana())
+            || ((snake.getCoordX() == bombs.getCoordXBomba()) && (snake.getCoordZ() == bombs.getCoordZBomba()))){
+                colisionConSerpiente = true;
+                break;
+            }
+
+            if((bombs.getCoordXBomba() == apples.getCoordXManzana()) && (bombs.getCoordZBomba() == apples.getCoordZManzana())){
+                colisionConSerpiente = true;
+                break;
+            }
+
+            for (const auto& segmento : snake.getSegmentos()) {
+                if (segmento.first == apples.getCoordXManzana() && segmento.second == apples.getCoordZManzana()) {
+                    colisionConSerpiente = true;
+                    break;
+                }
+                if (segmento.first == bombs.getCoordXBomba() && segmento.second == bombs.getCoordZBomba()) {
+                    colisionConSerpiente = true;
+                    break;
+                }
+            }
+
+            // Si no hay colisión, sal del bucle
+            if (!colisionConSerpiente) {
+                break;
+            }
+        }
 
         snake.crecer();
 
-    }else if((snake.getCoordX() >= bombs.getCoordXBomba() - 0.15 && snake.getCoordX() <= bombs.getCoordXBomba() + 0.15) &&
-             (snake.getCoordZ() >= bombs.getCoordZBomba() - 0.15 && snake.getCoordZ() <= bombs.getCoordZBomba() + 0.15)){
+    }else if((snake.getCoordX() == bombs.getCoordXBomba()) &&
+             (snake.getCoordZ() == bombs.getCoordZBomba())){
                 exit(1);
     }
 }
@@ -87,6 +118,10 @@ void igvEscena3D::setEjeY(float rotacion) {
 
 igvSnake* igvEscena3D::getSnake(){
     return &snake;
+}
+
+igvClouds* igvEscena3D::getClouds(){
+    return &clouds;
 }
 
 void igvEscena3D::visualizar(void)
@@ -109,6 +144,7 @@ void igvEscena3D::visualizar(void)
     apples.crearManzana();
     bombs.crearBomba();
     snake.crearModelo();
+    clouds.GenerarNubes();
 
    glPopMatrix();
 }
