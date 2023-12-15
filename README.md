@@ -1,5 +1,5 @@
-- [ ] Iluminación y texturas de la serpiente
-- [X] Hacer que la serpiente crezca (Crear un vector con los diferentes cubos que se generen y aplicar una translación a cada uno de los cubos con las coordenadas del cubo anterior en el vector)
+- [X] Iluminación
+- [X] Hacer que la serpiente crezca
 - [X] Menú principal y Puntuación 
-- [ ] Pantalla final cuando se pierde
-- [ ] Pantalla de pausa
+- [X] Pantalla final cuando se pierde
+- [X] Pantalla de pausa
