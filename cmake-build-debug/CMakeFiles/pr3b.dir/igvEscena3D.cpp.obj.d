@@ -290,4 +290,6 @@ CMakeFiles/pr3b.dir/igvEscena3D.cpp.obj: \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/charconv.h \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/c++/bits/basic_string.tcc \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvPunto3D.h \
- C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvClouds.h
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvClouds.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvFuenteLuz.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvColor.h

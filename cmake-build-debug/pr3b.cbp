@@ -118,10 +118,22 @@
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvClouds.h">
 			<Option target="pr3b"/>
 		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvColor.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvColor.h">
+			<Option target="pr3b"/>
+		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvEscena3D.cpp">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvEscena3D.h">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvFuenteLuz.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvFuenteLuz.h">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvInterfaz.cpp">

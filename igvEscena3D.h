@@ -16,6 +16,7 @@
 #include <string>
 #include "igvPunto3D.h"
 #include "igvClouds.h"
+#include "igvFuenteLuz.h"
 
 #endif   // defined(__APPLE__) && defined(__MACH__)
 

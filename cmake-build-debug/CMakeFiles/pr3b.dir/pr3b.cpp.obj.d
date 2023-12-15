@@ -287,4 +287,6 @@ CMakeFiles/pr3b.dir/pr3b.cpp.obj: \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvBombs.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvPunto3D.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvClouds.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvFuenteLuz.h \
+ C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvColor.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvCamara.h

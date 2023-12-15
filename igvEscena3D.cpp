@@ -199,6 +199,16 @@ void igvEscena3D::visualizarMenu(void) {
     glLightfv ( GL_LIGHT0, GL_POSITION, luz0 );
     glEnable ( GL_LIGHT0 );
 
+    igvFuenteLuz fuenteLuzFoco = igvFuenteLuz(GL_LIGHT1, igvPunto3D(3.0, 1.0, 1.0),
+                                              igvColor(0.0, 0.0, 0.0, 1.0),  // Ambiental
+                                              igvColor(0.5, 0.5, 0.5, 1.0),  // Difuso
+                                              igvColor(0.5, 0.5, 0.5, 1.0),  // Especular
+                                              1.0, 0.0, 0.0,
+                                              igvPunto3D(0.0, -1.0, 0.0),
+                                              180.0, 0.0);
+
+    fuenteLuzFoco.aplicar();
+
     glPushMatrix ();
 
     GLfloat negro[] = { 0, 0, 0, 1 };

@@ -192,40 +192,6 @@ void igvInterfaz::reshapeFunc ( int w, int h )
     _instancia->camara.aplicar ();
 }
 
-/**
- * Método para visualizar la escena
- */
-/*void igvInterfaz::displayFunc ()
-{  glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // borra la ventana y el Z-buffer
-
-    // se establece el viewport
-    if (_instancia->booleano) {
-        glViewport(250, 250, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
-        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas];
-        _instancia->escena.visualizar();
-        _instancia->camara.aplicar();
-        glViewport(0, 250, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
-        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+1];
-        _instancia->escena.visualizar();
-        _instancia->camara.aplicar();
-        glViewport(250, 0, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
-        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+2];
-        _instancia->escena.visualizar();
-        _instancia->camara.aplicar();
-        glViewport(0, 0, _instancia->get_ancho_ventana() / 2, _instancia->get_alto_ventana() / 2);
-        _instancia->camara.P0 = _instancia->vistas[_instancia->indice_vistas+3];
-        _instancia->escena.visualizar();
-        _instancia->camara.aplicar();
-    } else {
-        //visualiza la escena
-        glViewport(0, 0, _instancia->get_ancho_ventana(), _instancia->get_alto_ventana());
-        _instancia->escena.visualizar();
-    }
-
-    // refresca la ventana
-    glutSwapBuffers (); // se utiliza, en vez de glFlush(), para evitar el parpadeo
-}*/
-
 void igvInterfaz::displayFunc (){
     glClear ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ); // borra la ventana y el Z-bufferç
     glViewport ( 0, 0, _instancia->get_ancho_ventana (), _instancia->get_alto_ventana () );

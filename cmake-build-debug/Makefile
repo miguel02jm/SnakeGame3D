@@ -224,6 +224,30 @@ igvClouds.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvClouds.cpp.s
 .PHONY : igvClouds.cpp.s
 
+igvColor.obj: igvColor.cpp.obj
+.PHONY : igvColor.obj
+
+# target to build an object file
+igvColor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvColor.cpp.obj
+.PHONY : igvColor.cpp.obj
+
+igvColor.i: igvColor.cpp.i
+.PHONY : igvColor.i
+
+# target to preprocess a source file
+igvColor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvColor.cpp.i
+.PHONY : igvColor.cpp.i
+
+igvColor.s: igvColor.cpp.s
+.PHONY : igvColor.s
+
+# target to generate assembly for a file
+igvColor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvColor.cpp.s
+.PHONY : igvColor.cpp.s
+
 igvEscena3D.obj: igvEscena3D.cpp.obj
 .PHONY : igvEscena3D.obj
 
@@ -247,6 +271,30 @@ igvEscena3D.s: igvEscena3D.cpp.s
 igvEscena3D.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvEscena3D.cpp.s
 .PHONY : igvEscena3D.cpp.s
+
+igvFuenteLuz.obj: igvFuenteLuz.cpp.obj
+.PHONY : igvFuenteLuz.obj
+
+# target to build an object file
+igvFuenteLuz.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvFuenteLuz.cpp.obj
+.PHONY : igvFuenteLuz.cpp.obj
+
+igvFuenteLuz.i: igvFuenteLuz.cpp.i
+.PHONY : igvFuenteLuz.i
+
+# target to preprocess a source file
+igvFuenteLuz.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvFuenteLuz.cpp.i
+.PHONY : igvFuenteLuz.cpp.i
+
+igvFuenteLuz.s: igvFuenteLuz.cpp.s
+.PHONY : igvFuenteLuz.s
+
+# target to generate assembly for a file
+igvFuenteLuz.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\pr3b.dir\build.make CMakeFiles/pr3b.dir/igvFuenteLuz.cpp.s
+.PHONY : igvFuenteLuz.cpp.s
 
 igvInterfaz.obj: igvInterfaz.cpp.obj
 .PHONY : igvInterfaz.obj
@@ -365,9 +413,15 @@ help:
 	@echo ... igvClouds.obj
 	@echo ... igvClouds.i
 	@echo ... igvClouds.s
+	@echo ... igvColor.obj
+	@echo ... igvColor.i
+	@echo ... igvColor.s
 	@echo ... igvEscena3D.obj
 	@echo ... igvEscena3D.i
 	@echo ... igvEscena3D.s
+	@echo ... igvFuenteLuz.obj
+	@echo ... igvFuenteLuz.i
+	@echo ... igvFuenteLuz.s
 	@echo ... igvInterfaz.obj
 	@echo ... igvInterfaz.i
 	@echo ... igvInterfaz.s

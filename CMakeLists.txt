@@ -23,6 +23,10 @@ add_executable(${PROJECT_NAME}
         igvBombs.h
         igvClouds.cpp
         igvClouds.h
+        igvFuenteLuz.cpp
+        igvFuenteLuz.h
+        igvColor.cpp
+        igvColor.h
 )
 
 if (LINUX)
