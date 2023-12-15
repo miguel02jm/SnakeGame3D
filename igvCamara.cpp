@@ -1,5 +1,4 @@
 #include <math.h>
-#include <stdio.h>
 
 #include "igvCamara.h"
 
@@ -16,8 +15,8 @@
  *       le pasan
  */
 igvCamara::igvCamara ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-                       , igvPunto3D _V ): P0 ( _P0 ), r ( _r ), V ( _V )
-                                          , tipo ( _tipo )
+        , igvPunto3D _V ): P0 ( _P0 ), r ( _r ), V ( _V )
+        , tipo ( _tipo )
 { }
 
 // Métodos públicos
@@ -31,8 +30,8 @@ igvCamara::igvCamara ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  */
 void igvCamara::set ( igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V )
 {  P0 = _P0;
-   r = _r;
-   V = _V;
+    r  = _r;
+    V  = _V;
 }
 
 /**
@@ -51,20 +50,20 @@ void igvCamara::set ( igvPunto3D _P0, igvPunto3D _r, igvPunto3D _V )
  * @post Los atributos de la cámara cambian a los valores pasados como parámetro
  */
 void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-                      , igvPunto3D _V, double _xwmin, double _xwmax, double _ywmin
-                      , double _ywmax, double _znear, double _zfar )
+        , igvPunto3D _V, double _xwmin, double _xwmax, double _ywmin
+        , double _ywmax, double _znear, double _zfar )
 {  tipo = _tipo;
 
-   P0 = _P0;
-   r = _r;
-   V = _V;
+    P0 = _P0;
+    r = _r;
+    V = _V;
 
-   xwmin = _xwmin;
-   xwmax = _xwmax;
-   ywmin = _ywmin;
-   ywmax = _ywmax;
-   znear = _znear;
-   zfar = _zfar;
+    xwmin = _xwmin;
+    xwmax = _xwmax;
+    ywmin = _ywmin;
+    ywmax = _ywmax;
+    znear = _znear;
+    zfar = _zfar;
 }
 
 /**
@@ -82,18 +81,18 @@ void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  *       parámetros
  */
 void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
-                      , igvPunto3D _V, double _angulo, double _raspecto
-                      , double _znear, double _zfar )
+        , igvPunto3D _V, double _angulo, double _raspecto
+        , double _znear, double _zfar )
 {  tipo = _tipo;
 
-   P0 = _P0;
-   r = _r;
-   V = _V;
+    P0 = _P0;
+    r = _r;
+    V = _V;
 
-   angulo = _angulo;
-   raspecto = _raspecto;
-   znear = _znear;
-   zfar = _zfar;
+    angulo = _angulo;
+    raspecto = _raspecto;
+    znear = _znear;
+    zfar = _zfar;
 }
 
 /**
@@ -102,21 +101,24 @@ void igvCamara::set ( tipoCamara _tipo, igvPunto3D _P0, igvPunto3D _r
  */
 void igvCamara::aplicar ()
 {  glMatrixMode ( GL_PROJECTION );
-   glLoadIdentity ();
+    glLoadIdentity ();
 
-   if ( tipo == IGV_PARALELA )
-   {  glOrtho ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
-   }
-   if ( tipo == IGV_FRUSTUM )
-   {  glFrustum ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
-   }
-   if ( tipo == IGV_PERSPECTIVA )
-   {  gluPerspective ( angulo, raspecto, znear, zfar );
-   }
+    if ( tipo == IGV_PARALELA )
+    {
+        glOrtho ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
+    }
+    if ( tipo == IGV_FRUSTUM )
+    {
+        glFrustum ( xwmin, xwmax, ywmin, ywmax, znear, zfar );
+    }
+    if ( tipo == IGV_PERSPECTIVA )
+    {
+        gluPerspective ( angulo, raspecto, znear, zfar );
+    }
 
-   glMatrixMode ( GL_MODELVIEW );
-   glLoadIdentity ();
-   gluLookAt ( P0[X], P0[Y], P0[Z], r[X], r[Y], r[Z], V[X], V[Y], V[Z] );
+    glMatrixMode ( GL_MODELVIEW );
+    glLoadIdentity ();
+    gluLookAt ( P0[X], P0[Y], P0[Z], r[X], r[Y], r[Z], V[X], V[Y], V[Z] );
 }
 
 /**
@@ -126,16 +128,37 @@ void igvCamara::aplicar ()
  * @pre Se asume que el parámetro tiene un valor válido
  */
 void igvCamara::zoom ( double factor )
-{  double aux = (100 - factor/2)/100;
-   // En los casos de cámara paralela y cámara generada con frustum, hay que
-   // aplicar el factor de zoom a las coordenadas de ventana de visión
-   xwmin *= aux;
-   xwmax *= aux;
-   ywmin *= aux;
-   ywmax *= aux;
+{
+    xwmin = xwmin + (xwmin * factor);
+    xwmax = xwmax + (xwmax * factor);
+    ywmin = ywmin + (ywmin * factor);
+    ywmax = ywmax + (ywmax * factor);
+    angulo = angulo + (angulo * factor);
+}
 
-   // En el caso de la cámara perspectiva GLU, basta con aplicar el factor de
-   // zoom al ángulo de visión
-   aux = (100 - factor)/100;
-   angulo *= aux;
+void igvCamara::cambiar_vista() {
+    if (P0 == igvPunto3D(Default)) {
+        P0 = igvPunto3D(Perfil);
+    }
+    else if (P0 == igvPunto3D(Perfil)) {
+        P0 = igvPunto3D(Planta);
+    }
+    else if (P0 == igvPunto3D(Planta)) {
+        P0 = igvPunto3D(Alzado);
+    }
+    else if (P0 == igvPunto3D(Alzado)) {
+        P0 = igvPunto3D(Default);
+    }
+}
+
+void igvCamara::setVistaPerfil() {
+    P0 = igvPunto3D(Alzado);
+}
+
+void igvCamara::setVistaNormal() {
+    P0 = igvPunto3D(Default);
+}
+
+igvPunto3D igvCamara::getP0() {
+    return P0;
 }

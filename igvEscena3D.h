@@ -8,17 +8,20 @@
 #else
 
 #include <GL/glut.h>
+#include <vector>
+#include <cstring>
+#include "igvSnake.h"
+#include "igvApples.h"
+#include "igvBombs.h"
+#include <string>
+#include "igvPunto3D.h"
+#include "igvClouds.h"
+#include "igvFuenteLuz.h"
 
-#endif // defined(__APPLE__) && defined(__MACH__)
+#endif   // defined(__APPLE__) && defined(__MACH__)
 
-/**
- * Partes del modelo
- */
-enum parte
-{	basex   ///< Identifica la base del modelo
-   , cuerpoinferior   ///< Identifica el cuerpo inferior del modelo
-   , cuerposuperior   ///< Identifica el cuerpo superior del modelo
-   , brazo   ///< Identifica el brazo del modelo
+struct Segmento {
+    float x, y, z;
 };
 
 /**
@@ -26,34 +29,91 @@ enum parte
  */
 class igvEscena3D
 {  private:
-      // Atributos
-	   // TODO: Apartado C: añadir quí los atributos para el control de los grados de libertad del modelo
+    // Atributos
+    bool ejes = true;   ///< Indica si hay que dibujar los _ejes coordenados o no
+    float ejeX = 0;
+    float ejeY = 0;
 
-	   // Otros atributos
-      bool ejes = true;   ///< Indica si hay que dibujar los ejes coordenados o no
+    bool Primera_Generacion = true;
 
-   public:
+    igvSnake snake;
+    igvApples apples;
+    igvBombs bombs;
+    igvClouds clouds;
 
-      // Constructores por defecto y destructor
-      igvEscena3D();
-      ~igvEscena3D();
+    static const int filas = 10;
+    static const int columnas = 10;
+    int matrizEscenario[filas][columnas];
 
-      // método con las llamadas OpenGL para visualizar la escena
-      void visualizar();
+    float button1X = -2, button1Y = 0.75, buttonWidth = 4, buttonHeight = 0.75;
+    float button2X = -2, button2Y = -0.75;
+    float button3X = -2, button3Y = -2.25;
 
-      // TODO: Apartado B: Métodos para visualizar cada parte del modelo
+    float button4X = -0.8, button4Y = 1.3, button2Width = 1.75, button2Height = 0.4;
+    float button5X = -0.8, button5Y = -0.5;
+    float button6X = -0.8, button6Y = -2.35;
 
+    float button7X = -2, button7Y = -0.5, button3Width = 4, button3Height = 0.75;
+    float button8X = -2, button8Y = -2.0;
 
-      // TODO: Apartado C: añadir aquí los métodos para modificar los grados de libertad del modelo
+    GLfloat skin1[3] = { 0.1,0.4,0.1 };
+    GLfloat skin2[3] = {1.0, 0.5, 0.5};
+    GLfloat skin3[3] = {0.5, 0.5, 1.0};
+    GLfloat skin[3] = { 0.1,0.4,0.1 };
 
+    bool visualizandose=false;
+    bool visualizandoPausa=false;
 
-      bool get_ejes ();
-      void set_ejes ( bool _ejes );
+    int cont=0;
 
-   private:
-      void pintar_ejes ();
-      void CrearEscenario();
+    igvPunto3D Default = igvPunto3D(3.0, 2.0, 4.0);
+    igvPunto3D Planta = igvPunto3D(0.001, 5.0, 0.0);
+    igvPunto3D Alzado = igvPunto3D(0.0, 0.0, 4.0);
+    igvPunto3D Perfil = igvPunto3D(3.0, 0.0, 0.0);
 
+    bool bomba = false;
+
+public:
+    // Constructores por defecto y destructor
+    /// Constructor por defecto
+    igvEscena3D () = default;
+    /// Destructor
+    ~igvEscena3D () = default;
+
+    void visualizar(igvPunto3D camara);
+    void visualizarMenu();
+    void visualizarSkin();
+    void visualizarPausa();
+    void visualizarFinal();
+
+    bool get_ejes ();
+
+    void set_ejes ( bool _ejes );
+
+    void CrearEscenario();
+
+    void verificarColision();
+
+    void setEjeX(float rotacion);
+    void setEjeY(float rotacion);
+
+    igvSnake* getSnake();
+    igvBombs* getBombs();
+    igvApples* getApples();
+
+    void pintar_ejes();
+
+    void setSkin1();
+    void setSkin2();
+    void setSkin3();
+
+    bool getVisualizandose();
+    bool getVisualizandoPausa();
+
+    bool getBomba();
+    void setBomba(bool _bomba);
+
+    igvClouds* getClouds();
 };
 
 #endif   // __IGVESCENA3D

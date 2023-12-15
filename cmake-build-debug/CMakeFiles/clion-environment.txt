@@ -1,4 +1,4 @@
-ToolSet: w64 11.0 (local)@C:\Users\Jaime\AppData\Local\Programs\CLion\bin\mingw
+ToolSet: 11.0 w64 (local)@C:\Users\Jaime\AppData\Local\Programs\CLion\bin\mingw
 Options: 
 
 Options:-DCMAKE_PROJECT_TOP_LEVEL_INCLUDES=conan_provider.cmake

@@ -27,11 +27,6 @@ CMakeFiles/pr3b.dir/igvCamara.cpp.obj: \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/malloc.h \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/lib/gcc/x86_64-w64-mingw32/13.1.0/include/mm_malloc.h \
  C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/errno.h \
- C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/stdio.h \
- C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/corecrt_stdio_config.h \
- C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/_mingw_off_t.h \
- C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/swprintf.inl \
- C:/Users/Jaime/AppData/Local/Programs/CLion/bin/mingw/x86_64-w64-mingw32/include/sec_api/stdio_s.h \
  C:\Users\Jaime\Desktop\Graficas\SnakeGame3D\igvCamara.h \
  C:/Users/Jaime/.conan2/p/b/freegf34b40f2b0773/p/include/GL/glut.h \
  C:/Users/Jaime/.conan2/p/b/freegf34b40f2b0773/p/include/GL/freeglut_std.h \

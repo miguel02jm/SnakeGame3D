@@ -94,16 +94,46 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvApples.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvApples.h">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvBombs.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvBombs.h">
+			<Option target="pr3b"/>
+		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvCamara.cpp">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvCamara.h">
 			<Option target="pr3b"/>
 		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvClouds.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvClouds.h">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvColor.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvColor.h">
+			<Option target="pr3b"/>
+		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvEscena3D.cpp">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvEscena3D.h">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvFuenteLuz.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvFuenteLuz.h">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvInterfaz.cpp">
@@ -116,6 +146,12 @@
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvPunto3D.h">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvSnake.cpp">
+			<Option target="pr3b"/>
+		</Unit>
+		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/igvSnake.h">
 			<Option target="pr3b"/>
 		</Unit>
 		<Unit filename="C:/Users/Jaime/Desktop/Graficas/SnakeGame3D/pr3b.cpp">
