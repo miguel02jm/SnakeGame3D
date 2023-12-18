@@ -114,6 +114,8 @@ public:
     void setBomba(bool _bomba);
 
     igvClouds* getClouds();
+
+    void resetPuntuacion();
 };
 
 #endif   // __IGVESCENA3D

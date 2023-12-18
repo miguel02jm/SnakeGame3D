@@ -296,6 +296,7 @@ void igvInterfaz::mouseFunc ( GLint boton, GLint estado, GLint x, GLint y )
             } else if (x >= 82 && x <= 405 &&
                        y >= 354 && y <= 416) {
                 _instancia->pausa = false;
+                _instancia->escena.resetPuntuacion();
                 _instancia->currentState = MAIN_MENU;
             }
         }

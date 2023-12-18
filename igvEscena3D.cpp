@@ -604,3 +604,7 @@ void igvEscena3D::setBomba(bool _bomba){
 igvClouds* igvEscena3D::getClouds(){
     return &clouds;
 }
+
+void igvEscena3D::resetPuntuacion() {
+    cont = 0;
+}
